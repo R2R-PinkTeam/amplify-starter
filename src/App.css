@@ -2,7 +2,12 @@
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
-  text-align: center;
+  text-align: left;
+}
+
+.pink-theme {
+  background: linear-gradient(135deg, #FFE4E1, #FFF0F5);
+  min-height: 100vh;
 }
 
 .logo {
@@ -11,11 +16,13 @@
   will-change: filter;
   transition: filter 300ms;
 }
+
 .logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+  filter: drop-shadow(0 0 2em #FF69B4aa);
 }
+
 .logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+  filter: drop-shadow(0 0 2em #FF69B4aa);
 }
 
 @keyframes logo-spin {
@@ -35,8 +42,39 @@
 
 .card {
   padding: 2em;
+  background: rgba(255, 105, 180, 0.1);
+  border-radius: 10px;
+  border: 2px solid #FF69B4;
 }
 
 .read-the-docs {
   color: #888;
+}
+
+button {
+  background: linear-gradient(45deg, #FF69B4, #FF1493);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: transform 0.2s;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  background: rgba(255, 182, 193, 0.3);
+  margin: 8px 0;
+  padding: 12px;
+  border-radius: 6px;
+  border-left: 4px solid #FF69B4;
 }
