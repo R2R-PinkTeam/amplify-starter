@@ -1,10 +1,10 @@
-## AWS Amplify React+Vite Starter Template
+## AWS re:Invent 2025 - Pink Team Competition Site
 
-This repository provides a starter template for creating applications using React+Vite and AWS Amplify, emphasizing easy setup for authentication, API, and database capabilities.
+Welcome to the Pink Team's competition platform for AWS re:Invent 2025 Road-to-reInvent! This application showcases our team's skills using React+Vite and AWS Amplify.
 
 ## Overview
 
-This template equips you with a foundational React application integrated with AWS Amplify, streamlined for scalability and performance. It is ideal for developers looking to jumpstart their project with pre-configured AWS services like Cognito, AppSync, and DynamoDB.
+This platform demonstrates our team's expertise with AWS services and modern web development. Built with React and powered by AWS Amplify, featuring authentication, real-time data, and scalable architecture.
 
 ## Features
 
