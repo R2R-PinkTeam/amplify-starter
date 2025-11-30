@@ -7,7 +7,7 @@
   - Deploy backend changes to create S3 bucket
   - _Requirements: 4.1, 4.2, 4.3, 4.5_
 
-- [ ] 2. Create file upload utility functions
+- [x] 2. Create file upload utility functions
   - Create `src/utils/storage.ts` with upload, list, and URL generation functions
   - Implement file type validation (JPEG, PNG, GIF)
   - Implement file size validation (10MB limit)
