@@ -9,11 +9,13 @@ import {
 interface DesignGalleryProps {
   filterByCategory?: 'all' | FileCategory;
   onRefresh?: () => void;
+  refreshTrigger?: number;
 }
 
 export default function DesignGallery({
   filterByCategory: initialFilter = 'all',
   onRefresh,
+  refreshTrigger = 0,
 }: DesignGalleryProps) {
   const [designs, setDesigns] = useState<DesignMetadata[]>([]);
   const [loading, setLoading] = useState(true);
@@ -26,12 +28,14 @@ export default function DesignGallery({
 
     try {
       const files = await listUserFiles(selectedFilter);
+      console.log('Fetched files:', files);
 
       // Generate signed URLs for each file
       const designsWithUrls = await Promise.all(
         files.map(async (file) => {
           try {
             const url = await generateSignedUrl(file.key);
+            console.log(`Generated URL for ${file.key}:`, url);
             return { ...file, url };
           } catch (urlError) {
             console.error(`Failed to generate URL for ${file.key}:`, urlError);
@@ -41,6 +45,7 @@ export default function DesignGallery({
         })
       );
 
+      console.log('Designs with URLs:', designsWithUrls);
       setDesigns(designsWithUrls);
     } catch (err) {
       const errorMessage =
@@ -54,7 +59,7 @@ export default function DesignGallery({
 
   useEffect(() => {
     fetchDesigns();
-  }, [selectedFilter]);
+  }, [selectedFilter, refreshTrigger]);
 
   const handleFilterChange = (filter: 'all' | FileCategory) => {
     setSelectedFilter(filter);
@@ -115,7 +120,8 @@ export default function DesignGallery({
     const imgRef = useRef<HTMLImageElement>(null);
 
     useEffect(() => {
-      if (!imgRef.current) return;
+      const currentRef = imgRef.current;
+      if (!currentRef) return;
 
       const observer = new IntersectionObserver(
         (entries) => {
@@ -131,10 +137,17 @@ export default function DesignGallery({
         }
       );
 
-      observer.observe(imgRef.current);
+      observer.observe(currentRef);
 
       return () => {
-        observer.disconnect();
+        try {
+          if (currentRef) {
+            observer.unobserve(currentRef);
+          }
+          observer.disconnect();
+        } catch (e) {
+          // Ignore errors during cleanup
+        }
       };
     }, []);
 
@@ -165,8 +178,14 @@ export default function DesignGallery({
             opacity: isLoaded ? 1 : 0,
             transition: 'opacity 0.3s ease-in-out',
           }}
-          onLoad={() => setIsLoaded(true)}
-          onError={onError}
+          onLoad={() => {
+            console.log(`Image loaded successfully: ${alt}`);
+            setIsLoaded(true);
+          }}
+          onError={(e) => {
+            console.error(`Image failed to load: ${alt}`, e);
+            onError(e);
+          }}
         />
       </>
     );

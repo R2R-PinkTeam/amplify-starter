@@ -1,4 +1,3 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Authenticator } from "@aws-amplify/ui-react";
@@ -17,7 +16,7 @@ import outputs from "../amplify_outputs.json";
 Amplify.configure(outputs);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
+  // StrictMode temporarily disabled for hackathon - causes double mounting in dev
     <BrowserRouter>
       <Routes>
         {/* Public routes */}
@@ -64,5 +63,4 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
-  </React.StrictMode>
 );

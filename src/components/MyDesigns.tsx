@@ -6,7 +6,7 @@ import DesignGallery from './DesignGallery';
 
 export default function MyDesigns() {
   const { user, signOut } = useAuthenticator();
-  const [refreshKey, setRefreshKey] = useState(0);
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
 
   useEffect(() => {
     // Initialize menuzord if available
@@ -16,8 +16,8 @@ export default function MyDesigns() {
   }, []);
 
   const handleUploadComplete = () => {
-    // Trigger gallery refresh by updating key
-    setRefreshKey((prev) => prev + 1);
+    // Trigger gallery refresh by updating trigger
+    setRefreshTrigger((prev) => prev + 1);
   };
 
   const handleRefresh = () => {
@@ -100,7 +100,7 @@ export default function MyDesigns() {
             <div className="col-12">
               <div className="card bg-white">
                 <div className="card-body">
-                  <DesignGallery key={refreshKey} filterByCategory="all" onRefresh={handleRefresh} />
+                  <DesignGallery filterByCategory="all" onRefresh={handleRefresh} refreshTrigger={refreshTrigger} />
                 </div>
               </div>
             </div>

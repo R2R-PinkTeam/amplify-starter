@@ -1,4 +1,4 @@
-import { uploadData, list, getUrl } from 'aws-amplify/storage';
+import { uploadData, list, getUrl, downloadData } from 'aws-amplify/storage';
 
 /**
  * Supported file types for upload
@@ -153,15 +153,25 @@ export async function listUserFiles(
         : ['uploads', 'templates', 'ai-generated'];
 
     for (const cat of categories) {
+      console.log(`Listing files for category: ${cat}`);
       const result = await list({
         path: `${cat}/`,
       });
+
+      console.log(`List result for ${cat}:`, result);
 
       for (const item of result.items) {
         // Skip directory entries
         if (item.path.endsWith('/')) continue;
 
         const fileName = item.path.split('/').pop() || item.path;
+
+        console.log(`Processing item:`, {
+          path: item.path,
+          fileName,
+          size: item.size,
+          lastModified: item.lastModified
+        });
 
         designs.push({
           key: item.path,
@@ -175,9 +185,11 @@ export async function listUserFiles(
       }
     }
 
+    console.log(`Total designs found: ${designs.length}`);
     // Sort by upload date, newest first
     return designs.sort((a, b) => b.uploadDate.getTime() - a.uploadDate.getTime());
   } catch (error) {
+    console.error('Error in listUserFiles:', error);
     throw new Error(`Failed to list files: ${error instanceof Error ? error.message : 'Unknown error'}`);
   }
 }
@@ -193,15 +205,36 @@ export async function generateSignedUrl(
   expiresIn: number = 900
 ): Promise<string> {
   try {
-    const result = await getUrl({
-      path: key,
-      options: {
-        expiresIn,
-      },
-    });
+    console.log(`Generating signed URL for key: ${key}`);
 
-    return result.url.toString();
+    // Try downloading the file and creating a blob URL instead
+    try {
+      const downloadResult = await downloadData({
+        path: key,
+      }).result;
+
+      const blob = await downloadResult.body.blob();
+      const blobUrl = URL.createObjectURL(blob);
+      console.log(`Generated blob URL for ${key}:`, blobUrl);
+      return blobUrl;
+    } catch (downloadError) {
+      console.error(`Download failed, falling back to getUrl:`, downloadError);
+
+      // Fallback to getUrl if download fails
+      const result = await getUrl({
+        path: key,
+        options: {
+          expiresIn,
+          validateObjectExistence: false,
+        },
+      });
+
+      const urlString = result.url.href || result.url.toString();
+      console.log(`Generated URL:`, urlString);
+      return urlString;
+    }
   } catch (error) {
+    console.error(`Error generating URL for ${key}:`, error);
     throw new Error(`Failed to generate URL: ${error instanceof Error ? error.message : 'Unknown error'}`);
   }
 }
