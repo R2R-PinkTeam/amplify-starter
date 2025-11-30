@@ -1,3 +1,4 @@
+import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Authenticator } from "@aws-amplify/ui-react";
@@ -15,6 +16,10 @@ import outputs from "../amplify_outputs.json";
 
 Amplify.configure(outputs);
 
+const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
+  return <Authenticator>{children}</Authenticator>;
+};
+
 ReactDOM.createRoot(document.getElementById("root")!).render(
   // StrictMode temporarily disabled for hackathon - causes double mounting in dev
     <BrowserRouter>
@@ -29,33 +34,33 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <Route
           path="/dashboard"
           element={
-            <Authenticator>
+            <ProtectedRoute>
               <Dashboard />
-            </Authenticator>
+            </ProtectedRoute>
           }
         />
         <Route
           path="/my-designs"
           element={
-            <Authenticator>
+            <ProtectedRoute>
               <MyDesigns />
-            </Authenticator>
+            </ProtectedRoute>
           }
         />
         <Route
           path="/app"
           element={
-            <Authenticator>
+            <ProtectedRoute>
               <App />
-            </Authenticator>
+            </ProtectedRoute>
           }
         />
         <Route
           path="/setup"
           element={
-            <Authenticator>
+            <ProtectedRoute>
               <Setup />
-            </Authenticator>
+            </ProtectedRoute>
           }
         />
 
