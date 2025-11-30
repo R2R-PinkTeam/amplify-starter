@@ -3,7 +3,7 @@ GumWall Agent Tools
 
 This package contains the specialized tools used by the GumWall AI agent:
 - site_selection: Gordon Ramsay-style site evaluation
-- proposal: City council proposal generation
+- proposal: City council proposal generation (HOA president personality)
 - progress: Gum count and progress tracking
 """
 
