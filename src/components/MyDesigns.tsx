@@ -28,78 +28,111 @@ export default function MyDesigns() {
   return (
     <div className="main-wrapper">
       {/* HEADER */}
-      <header className="header">
-        <nav className="nav-menuzord navbar-sticky">
-          <div className="container clearfix">
-            <div id="menuzord" className="menuzord menuzord-responsive">
-              <Link to="/dashboard" className="menuzord-brand">
-                <h1 style={{ fontSize: '2rem', fontWeight: 800, margin: 0, color: '#FF6B9D' }}>
-                  🍬 GumWall
-                </h1>
+      <header className="header" style={{
+        background: 'white',
+        borderBottom: '1px solid #e5e7eb',
+        padding: '1rem 0',
+        position: 'sticky',
+        top: 0,
+        zIndex: 1000
+      }}>
+        <div className="container">
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: '1rem'
+          }}>
+            <Link to="/dashboard" style={{ textDecoration: 'none' }}>
+              <h1 style={{ fontSize: '2rem', fontWeight: 800, margin: 0, color: '#FF6B9D' }}>
+                🍬 GumWall
+              </h1>
+            </Link>
+
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '1.5rem'
+            }}>
+              <Link
+                to="/dashboard"
+                style={{
+                  color: '#6b7280',
+                  textDecoration: 'none',
+                  fontWeight: 600,
+                  fontSize: '1rem'
+                }}
+              >
+                DASHBOARD
               </Link>
-              <div className="float-right btn-wrapper">
+              <Link
+                to="/my-designs"
+                style={{
+                  color: '#FF6B9D',
+                  textDecoration: 'none',
+                  fontWeight: 600,
+                  fontSize: '1rem'
+                }}
+              >
+                MY DESIGNS
+              </Link>
+
+              {/* Profile Dropdown */}
+              <div style={{ position: 'relative' }}>
                 <button
                   onClick={signOut}
-                  className="btn btn-outline-primary"
-                  style={{ cursor: 'pointer' }}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.5rem',
+                    background: 'transparent',
+                    border: '2px solid #FF6B9D',
+                    color: '#FF6B9D',
+                    cursor: 'pointer',
+                    padding: '0.5rem 1rem',
+                    borderRadius: '6px',
+                    fontWeight: 600,
+                    fontSize: '0.875rem',
+                    transition: 'all 0.2s'
+                  }}
+                  onMouseOver={(e) => {
+                    e.currentTarget.style.background = '#FF6B9D';
+                    e.currentTarget.style.color = 'white';
+                  }}
+                  onMouseOut={(e) => {
+                    e.currentTarget.style.background = 'transparent';
+                    e.currentTarget.style.color = '#FF6B9D';
+                  }}
                 >
-                  Sign Out
+                  SIGN OUT
                 </button>
               </div>
-              <ul className="menuzord-menu menuzord-right">
-                <li>
-                  <Link to="/dashboard">Dashboard</Link>
-                </li>
-                <li className="active">
-                  <Link to="/my-designs">My Designs</Link>
-                </li>
-                <li>
-                  <span className="text-muted">{user?.signInDetails?.loginId}</span>
-                </li>
-              </ul>
             </div>
           </div>
-        </nav>
+        </div>
       </header>
 
       {/* MY DESIGNS CONTENT */}
       <section className="pt-md-10 sec-pb-70 pb-6 bg-light">
         <div className="container">
           {/* Page Header with Upload */}
-          <div className="section-title pt-md-8">
-            <style>{`
-              @media (max-width: 768px) {
-                .page-header-content {
-                  flex-direction: column !important;
-                  align-items: flex-start !important;
-                  gap: 16px !important;
-                }
-
-                .page-header-content > div {
-                  width: 100%;
-                }
-
-                .page-header-content h2 {
-                  font-size: 1.75rem !important;
-                }
-              }
-            `}</style>
-            <div className="page-header-content" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '20px' }}>
-              <div>
-                <h2>My Designs</h2>
-                <p>View and manage your gum wall art collection</p>
-              </div>
-              <div>
-                <FileUpload onUploadComplete={handleUploadComplete} category="uploads" />
-              </div>
+          <div className="section-title pt-md-8" style={{ textAlign: 'center', marginBottom: '2rem' }}>
+            <h2 style={{ fontSize: '2.5rem', fontWeight: 700, color: '#1f2937', marginBottom: '0.5rem' }}>
+              My Designs
+            </h2>
+            <p style={{ fontSize: '1.125rem', color: '#6b7280', marginBottom: '1.5rem' }}>
+              View and manage your gum wall art collection
+            </p>
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <FileUpload onUploadComplete={handleUploadComplete} category="uploads" />
             </div>
           </div>
 
           {/* Design Gallery */}
-          <div className="row mt-4">
+          <div className="row">
             <div className="col-12">
-              <div className="card bg-white">
-                <div className="card-body">
+              <div className="card bg-white" style={{ borderRadius: '12px', boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)' }}>
+                <div className="card-body" style={{ padding: '2rem' }}>
                   <DesignGallery filterByCategory="all" onRefresh={handleRefresh} refreshTrigger={refreshTrigger} />
                 </div>
               </div>
