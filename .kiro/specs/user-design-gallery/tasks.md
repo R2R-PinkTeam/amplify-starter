@@ -1,6 +1,6 @@
 # Implementation Plan
 
-- [ ] 1. Set up Amplify Storage backend resource
+- [x] 1. Set up Amplify Storage backend resource
   - Create `amplify/storage/resource.ts` with storage definition
   - Configure user-scoped access patterns for uploads/, templates/, and ai-generated/ paths
   - Update `amplify/backend.ts` to include storage resource
