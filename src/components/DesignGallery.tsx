@@ -116,40 +116,35 @@ export default function DesignGallery({
   // Lazy Loading Image Component
   const LazyImage = ({ src, alt, onError }: { src: string; alt: string; onError: (e: React.SyntheticEvent<HTMLImageElement>) => void }) => {
     const [isLoaded, setIsLoaded] = useState(false);
-    const [isInView, setIsInView] = useState(false);
+    const [hasError, setHasError] = useState(false);
     const imgRef = useRef<HTMLImageElement>(null);
 
-    useEffect(() => {
-      const currentRef = imgRef.current;
-      if (!currentRef) return;
+    const handleError = (e: React.SyntheticEvent<HTMLImageElement>) => {
+      console.error(`Image failed to load: ${alt}`, e);
+      setHasError(true);
+      onError(e);
+    };
 
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              setIsInView(true);
-              observer.disconnect();
-            }
-          });
-        },
-        {
-          rootMargin: '50px',
-        }
+    const handleLoad = () => {
+      console.log(`Image loaded successfully: ${alt}`);
+      setIsLoaded(true);
+    };
+
+    if (hasError) {
+      return (
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: '100%',
+            color: '#9ca3af',
+          }}
+        >
+          <i className="fas fa-image" style={{ fontSize: '48px' }}></i>
+        </div>
       );
-
-      observer.observe(currentRef);
-
-      return () => {
-        try {
-          if (currentRef) {
-            observer.unobserve(currentRef);
-          }
-          observer.disconnect();
-        } catch (e) {
-          // Ignore errors during cleanup
-        }
-      };
-    }, []);
+    }
 
     return (
       <>
@@ -169,8 +164,9 @@ export default function DesignGallery({
         )}
         <img
           ref={imgRef}
-          src={isInView ? src : ''}
+          src={src}
           alt={alt}
+          crossOrigin="anonymous"
           style={{
             width: '100%',
             height: '100%',
@@ -178,14 +174,8 @@ export default function DesignGallery({
             opacity: isLoaded ? 1 : 0,
             transition: 'opacity 0.3s ease-in-out',
           }}
-          onLoad={() => {
-            console.log(`Image loaded successfully: ${alt}`);
-            setIsLoaded(true);
-          }}
-          onError={(e) => {
-            console.error(`Image failed to load: ${alt}`, e);
-            onError(e);
-          }}
+          onLoad={handleLoad}
+          onError={handleError}
         />
       </>
     );

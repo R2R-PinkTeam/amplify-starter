@@ -253,16 +253,16 @@ export default function Dashboard() {
             <p>Create, design, and generate amazing gum wall art</p>
           </div>
 
-          <div className="row">
+          <div className="row justify-content-center">
             {/* Create New Design */}
-            <div className="col-md-6 col-lg-3">
-              <div className="card bg-white">
-                <div className="card-body text-center">
+            <div className="col-md-6 col-lg-4">
+              <div className="card bg-white h-100">
+                <div className="card-body text-center d-flex flex-column">
                   <div className="icon-md mb-4">
                     <i className="fas fa-palette" style={{ fontSize: '3rem', color: '#FF6B9D' }}></i>
                   </div>
                   <h3 className="h5 fw-normal mb-3">Create New Design</h3>
-                  <p className="text-muted mb-4">
+                  <p className="text-muted mb-4 flex-grow-1">
                     Start a new gum wall design from scratch
                   </p>
                   <button className="btn btn-primary w-100">Start Creating</button>
@@ -271,14 +271,14 @@ export default function Dashboard() {
             </div>
 
             {/* Generate with AI */}
-            <div className="col-md-6 col-lg-3">
-              <div className="card bg-white">
-                <div className="card-body text-center">
+            <div className="col-md-6 col-lg-4">
+              <div className="card bg-white h-100">
+                <div className="card-body text-center d-flex flex-column">
                   <div className="icon-md mb-4">
                     <i className="fas fa-robot" style={{ fontSize: '3rem', color: '#FF6B9D' }}></i>
                   </div>
                   <h3 className="h5 fw-normal mb-3">AI Generator</h3>
-                  <p className="text-muted mb-4">
+                  <p className="text-muted mb-4 flex-grow-1">
                     Generate unique gum wall images using AI
                   </p>
                   <button className="btn btn-primary w-100">Generate</button>
@@ -287,33 +287,17 @@ export default function Dashboard() {
             </div>
 
             {/* My Designs */}
-            <div className="col-md-6 col-lg-3">
-              <div className="card bg-white">
-                <div className="card-body text-center">
+            <div className="col-md-6 col-lg-4">
+              <div className="card bg-white h-100">
+                <div className="card-body text-center d-flex flex-column">
                   <div className="icon-md mb-4">
                     <i className="fas fa-folder-open" style={{ fontSize: '3rem', color: '#FF6B9D' }}></i>
                   </div>
                   <h3 className="h5 fw-normal mb-3">My Designs</h3>
-                  <p className="text-muted mb-4">
+                  <p className="text-muted mb-4 flex-grow-1">
                     View and manage your saved designs
                   </p>
                   <Link to="/my-designs" className="btn btn-primary w-100">View All</Link>
-                </div>
-              </div>
-            </div>
-
-            {/* Color Palette */}
-            <div className="col-md-6 col-lg-3">
-              <div className="card bg-white">
-                <div className="card-body text-center">
-                  <div className="icon-md mb-4">
-                    <i className="fas fa-fill-drip" style={{ fontSize: '3rem', color: '#FF6B9D' }}></i>
-                  </div>
-                  <h3 className="h5 fw-normal mb-3">Color Palettes</h3>
-                  <p className="text-muted mb-4">
-                    Browse and create custom color palettes
-                  </p>
-                  <button className="btn btn-primary w-100">Explore</button>
                 </div>
               </div>
             </div>

@@ -197,42 +197,29 @@ export async function listUserFiles(
 /**
  * Generates a signed URL for file access
  * @param key - S3 object key
- * @param expiresIn - URL expiration time in seconds (default: 900 = 15 minutes)
+ * @param expiresIn - URL expiration time in seconds (default: 3600 = 1 hour)
  * @returns Promise with signed URL
  */
 export async function generateSignedUrl(
   key: string,
-  expiresIn: number = 900
+  expiresIn: number = 3600
 ): Promise<string> {
   try {
     console.log(`Generating signed URL for key: ${key}`);
 
-    // Try downloading the file and creating a blob URL instead
-    try {
-      const downloadResult = await downloadData({
-        path: key,
-      }).result;
+    // Use getUrl with proper options for authenticated access
+    const result = await getUrl({
+      path: key,
+      options: {
+        expiresIn,
+        validateObjectExistence: false,
+        useAccelerateEndpoint: false,
+      },
+    });
 
-      const blob = await downloadResult.body.blob();
-      const blobUrl = URL.createObjectURL(blob);
-      console.log(`Generated blob URL for ${key}:`, blobUrl);
-      return blobUrl;
-    } catch (downloadError) {
-      console.error(`Download failed, falling back to getUrl:`, downloadError);
-
-      // Fallback to getUrl if download fails
-      const result = await getUrl({
-        path: key,
-        options: {
-          expiresIn,
-          validateObjectExistence: false,
-        },
-      });
-
-      const urlString = result.url.href || result.url.toString();
-      console.log(`Generated URL:`, urlString);
-      return urlString;
-    }
+    const urlString = result.url.toString();
+    console.log(`Generated URL for ${key}:`, urlString);
+    return urlString;
   } catch (error) {
     console.error(`Error generating URL for ${key}:`, error);
     throw new Error(`Failed to generate URL: ${error instanceof Error ? error.message : 'Unknown error'}`);

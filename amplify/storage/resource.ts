@@ -9,7 +9,7 @@ export const storage = defineStorage({
   access: (allow) => ({
     'uploads/*': [
       allow.authenticated.to(['read', 'write', 'delete']),
-      allow.guest.to(['read']), // Allow guest read access for signed URLs
+      allow.guest.to(['read']),
     ],
     'templates/*': [
       allow.authenticated.to(['read', 'write', 'delete']),
