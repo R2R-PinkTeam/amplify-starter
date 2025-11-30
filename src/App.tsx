@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
+import { useAuthenticator } from "@aws-amplify/ui-react";
 import type { Schema } from "../amplify/data/resource";
 import { generateClient } from "aws-amplify/data";
 
 const client = generateClient<Schema>();
 
 function App() {
+  const { user, signOut } = useAuthenticator((context) => [context.user]);
   const [todos, setTodos] = useState<Array<Schema["Todo"]["type"]>>([]);
   const [challenges, setChallenges] = useState<Array<Schema["Challenge"]["type"]>>([]);
 
@@ -56,17 +58,37 @@ function App() {
   return (
     <main style={{ padding: '20px', maxWidth: '1200px', margin: '0 auto' }}>
       <header style={{ textAlign: 'center', marginBottom: '3rem' }}>
-        <h1 style={{ 
-          color: '#FF69B4', 
-          fontSize: '3rem', 
+        <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '1rem' }}>
+          <span style={{ color: '#666', marginRight: '1rem', alignSelf: 'center' }}>
+            {user?.signInDetails?.loginId}
+          </span>
+          <button
+            onClick={signOut}
+            style={{
+              background: 'transparent',
+              color: '#FF1493',
+              border: '2px solid #FF69B4',
+              padding: '8px 16px',
+              borderRadius: '6px',
+              cursor: 'pointer',
+              fontWeight: 'bold',
+              fontSize: '0.9rem'
+            }}
+          >
+            Sign Out
+          </button>
+        </div>
+        <h1 style={{
+          color: '#FF69B4',
+          fontSize: '3rem',
           margin: '0',
           textShadow: '2px 2px 4px rgba(0,0,0,0.1)'
         }}>
           🌸 Pink Team Competition 🌸
         </h1>
-        <h2 style={{ 
-          color: '#666', 
-          fontSize: '1.4rem', 
+        <h2 style={{
+          color: '#666',
+          fontSize: '1.4rem',
           margin: '0.5rem 0',
           fontWeight: 'normal'
         }}>

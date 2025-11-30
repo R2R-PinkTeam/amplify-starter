@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Pink Team - Road to re:Invent 2025</title>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.css"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/theme/black.min.css"
+        />
+        <style>
+            :root {
+                --r-background-color: #1a0a14;
+                --r-main-color: #fff;
+                --r-heading-color: #FF69B4;
+                --r-link-color: #FF1493;
+            }
+            .reveal {
+                font-family:
+                    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                    sans-serif;
+            }
+            .reveal h1,
+            .reveal h2,
+            .reveal h3 {
+                text-transform: none;
+                font-weight: 700;
+            }
+            .reveal h1 {
+                font-size: 2.8em;
+                background: linear-gradient(135deg, #FF69B4 0%, #FF1493 50%, #DC143C 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+            .reveal h2 {
+                font-size: 2em;
+                color: #FF69B4;
+            }
+            .reveal h3 {
+                font-size: 1.4em;
+                color: #FFB6C1;
+            }
+
+            .pink-gradient {
+                background: linear-gradient(135deg, #FF69B4 0%, #FF1493 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+
+            .emoji-large {
+                font-size: 4em;
+            }
+            .emoji-medium {
+                font-size: 2.5em;
+            }
+
+            .highlight-box {
+                background: rgba(255, 105, 180, 0.15);
+                border-left: 4px solid #FF69B4;
+                padding: 1em 1.5em;
+                margin: 1em 0;
+                text-align: left;
+                border-radius: 0 10px 10px 0;
+            }
+
+            .team-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 2em;
+                margin: 1.5em 0;
+            }
+            .team-member {
+                text-align: center;
+                padding: 1.5em;
+                background: rgba(255, 105, 180, 0.1);
+                border-radius: 15px;
+                border: 2px solid rgba(255, 105, 180, 0.3);
+                transition: all 0.3s ease;
+            }
+            .team-member:hover {
+                border-color: #FF69B4;
+                transform: translateY(-5px);
+            }
+            .team-member .avatar {
+                font-size: 3em;
+                margin-bottom: 0.3em;
+            }
+            .team-member .name {
+                font-weight: bold;
+                color: #FF69B4;
+                font-size: 1.1em;
+            }
+            .team-member .role {
+                color: #999;
+                font-size: 0.85em;
+                margin-top: 0.3em;
+            }
+
+            .feature-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5em;
+                margin: 1em 0;
+            }
+            .feature-item {
+                text-align: center;
+                padding: 1.5em;
+                background: rgba(255, 105, 180, 0.1);
+                border-radius: 15px;
+                border: 2px solid rgba(255, 105, 180, 0.2);
+            }
+            .feature-item .icon {
+                font-size: 2.5em;
+                margin-bottom: 0.3em;
+            }
+            .feature-item .title {
+                font-weight: bold;
+                color: #FF69B4;
+                margin-bottom: 0.3em;
+            }
+            .feature-item .desc {
+                color: #ccc;
+                font-size: 0.85em;
+            }
+
+            .idea-box {
+                background: linear-gradient(135deg, rgba(255, 105, 180, 0.2) 0%, rgba(220, 20, 60, 0.2) 100%);
+                border: 2px solid #FF69B4;
+                border-radius: 20px;
+                padding: 2em;
+                margin: 1em 0;
+            }
+
+            .tech-stack {
+                display: flex;
+                justify-content: center;
+                gap: 2em;
+                margin: 1.5em 0;
+                flex-wrap: wrap;
+            }
+            .tech-item {
+                text-align: center;
+                padding: 1em;
+            }
+            .tech-item .logo {
+                font-size: 2.5em;
+            }
+            .tech-item .name {
+                font-size: 0.8em;
+                color: #FFB6C1;
+                margin-top: 0.3em;
+            }
+
+            .thank-you {
+                font-size: 4em !important;
+                font-weight: 900;
+                background: linear-gradient(135deg, #FF69B4 0%, #FF1493 50%, #FFD700 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+
+            .small {
+                font-size: 0.7em;
+                color: #888;
+            }
+
+            .placeholder {
+                color: #666;
+                font-style: italic;
+                border: 2px dashed #444;
+                padding: 1em;
+                border-radius: 10px;
+            }
+
+            /* Footer styling */
+            .reveal .footer {
+                position: fixed;
+                bottom: 1em;
+                left: 1em;
+                font-size: 0.5em;
+                color: #888;
+                z-index: 100;
+            }
+
+            @keyframes pulse {
+                0%, 100% { opacity: 1; }
+                50% { opacity: 0.6; }
+            }
+            .pulse {
+                animation: pulse 2s infinite;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="footer">
+                Road to re:Invent 2025 | AWS Hackathon
+            </div>
+            <div class="slides">
+                <!-- Title Slide -->
+                <section>
+                    <p class="emoji-large">🌸</p>
+                    <h1>Pink Team</h1>
+                    <h3>Road to re:Invent 2025</h3>
+                    <p class="emoji-medium">🚀 AWS Hackathon 🚀</p>
+                    <p class="small">
+                        Press <kbd>Space</kbd> to navigate | <kbd>S</kbd> for speaker notes
+                    </p>
+                    <aside class="notes">
+                        Welcome to our Pink Team hackathon presentation!
+                        We're excited to share our journey and ideas.
+                    </aside>
+                </section>
+
+                <!-- Team Members -->
+                <section>
+                    <h2>Meet the Team</h2>
+                    <div class="team-grid">
+                        <div class="team-member fragment">
+                            <div class="avatar">👤</div>
+                            <div class="name">Team Member 1</div>
+                            <div class="role">Role TBD</div>
+                        </div>
+                        <div class="team-member fragment">
+                            <div class="avatar">👤</div>
+                            <div class="name">Team Member 2</div>
+                            <div class="role">Role TBD</div>
+                        </div>
+                        <div class="team-member fragment">
+                            <div class="avatar">👤</div>
+                            <div class="name">Team Member 3</div>
+                            <div class="role">Role TBD</div>
+                        </div>
+                    </div>
+                    <p class="small placeholder">Team members will be added as we form the team</p>
+                    <aside class="notes">
+                        Introduce each team member and their expertise.
+                    </aside>
+                </section>
+
+                <!-- Our Awesome Idea -->
+                <section>
+                    <section>
+                        <h2>Our Awesome Idea</h2>
+                        <p class="emoji-large pulse">💡</p>
+                    </section>
+                    <section>
+                        <h3>The Problem</h3>
+                        <div class="idea-box">
+                            <p class="placeholder">
+                                Problem statement will be added once we understand the hackathon challenge...
+                            </p>
+                        </div>
+                        <aside class="notes">
+                            Explain the problem we're solving.
+                        </aside>
+                    </section>
+                    <section>
+                        <h3>Our Solution</h3>
+                        <div class="idea-box">
+                            <p class="placeholder">
+                                Our innovative solution will be described here...
+                            </p>
+                        </div>
+                        <aside class="notes">
+                            Present our unique approach to solving the problem.
+                        </aside>
+                    </section>
+                </section>
+
+                <!-- Main Features -->
+                <section>
+                    <section>
+                        <h2>Main Features</h2>
+                        <p class="emoji-medium">✨</p>
+                    </section>
+                    <section>
+                        <div class="feature-grid">
+                            <div class="feature-item fragment">
+                                <div class="icon">🔐</div>
+                                <div class="title">Secure Authentication</div>
+                                <div class="desc">Amazon Cognito powered user management</div>
+                            </div>
+                            <div class="feature-item fragment">
+                                <div class="icon">⚡</div>
+                                <div class="title">Real-time Updates</div>
+                                <div class="desc">GraphQL subscriptions for live data</div>
+                            </div>
+                            <div class="feature-item fragment">
+                                <div class="icon">📊</div>
+                                <div class="title">Feature 3</div>
+                                <div class="desc">Description TBD</div>
+                            </div>
+                            <div class="feature-item fragment">
+                                <div class="icon">🌐</div>
+                                <div class="title">Feature 4</div>
+                                <div class="desc">Description TBD</div>
+                            </div>
+                        </div>
+                        <aside class="notes">
+                            Walk through each main feature and its benefits.
+                        </aside>
+                    </section>
+                </section>
+
+                <!-- Tech Stack -->
+                <section>
+                    <h2>Tech Stack</h2>
+                    <div class="tech-stack">
+                        <div class="tech-item fragment">
+                            <div class="logo">⚛️</div>
+                            <div class="name">React</div>
+                        </div>
+                        <div class="tech-item fragment">
+                            <div class="logo">📱</div>
+                            <div class="name">AWS Amplify</div>
+                        </div>
+                        <div class="tech-item fragment">
+                            <div class="logo">🔐</div>
+                            <div class="name">Cognito</div>
+                        </div>
+                        <div class="tech-item fragment">
+                            <div class="logo">🗄️</div>
+                            <div class="name">DynamoDB</div>
+                        </div>
+                        <div class="tech-item fragment">
+                            <div class="logo">📡</div>
+                            <div class="name">AppSync</div>
+                        </div>
+                    </div>
+                    <aside class="notes">
+                        Explain why we chose each technology.
+                    </aside>
+                </section>
+
+                <!-- Demo -->
+                <section>
+                    <h2>Live Demo</h2>
+                    <p class="emoji-large">🎬</p>
+                    <div class="highlight-box">
+                        <p>Demo will showcase:</p>
+                        <ul>
+                            <li>User authentication flow</li>
+                            <li>Core application features</li>
+                            <li>Real-time functionality</li>
+                        </ul>
+                    </div>
+                    <aside class="notes">
+                        Time for the live demonstration!
+                    </aside>
+                </section>
+
+                <!-- Thank You -->
+                <section>
+                    <p class="thank-you">Thank You!</p>
+                    <p class="emoji-large">🌸 💖 🌸</p>
+                    <h3>Questions?</h3>
+                    <p style="margin-top: 2em;">
+                        <span class="pink-gradient" style="font-size: 1.3em;">Pink Team</span>
+                        <br>
+                        <span class="small">Road to re:Invent 2025</span>
+                    </p>
+                    <aside class="notes">
+                        Thank the audience and open for questions.
+                    </aside>
+                </section>
+            </div>
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/plugin/notes/notes.min.js"></script>
+        <script>
+            Reveal.initialize({
+                hash: true,
+                slideNumber: "c/t",
+                showSlideNumber: "speaker",
+                transition: "slide",
+                transitionSpeed: "default",
+                plugins: [RevealNotes],
+            });
+        </script>
+    </body>
+</html>
