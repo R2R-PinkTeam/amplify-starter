@@ -1,0 +1,398 @@
+openapi: 3.0.0
+info:
+  title: Gum Packs API
+  description: REST API for managing gum packs
+  version: 1.0.0
+
+paths:
+  /gum-packs:
+    get:
+      summary: Get all gum packs
+      description: Retrieve all gum packs with optional filtering by color, flavor, and origin
+      operationId: getGumPacks
+      parameters:
+        - name: color
+          in: query
+          description: Filter by gum color
+          required: false
+          schema:
+            type: string
+        - name: flavor
+          in: query
+          description: Filter by gum flavor
+          required: false
+          schema:
+            type: string
+        - name: origin
+          in: query
+          description: Filter by gum origin
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  gumPacks:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/GumPack'
+                  count:
+                    type: integer
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri:
+          Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetGumPacksFunction.Arn}/invocations
+
+    post:
+      summary: Create a new gum pack
+      description: Create a new gum pack with specified attributes
+      operationId: createGumPack
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - color
+                - flavor
+                - origin
+                - packSize
+                - stockQuantity
+              properties:
+                color:
+                  type: string
+                  description: Gum color
+                flavor:
+                  type: string
+                  description: Gum flavor
+                origin:
+                  type: string
+                  description: Gum origin
+                packSize:
+                  type: integer
+                  description: Number of pieces per pack
+                  minimum: 1
+                stockQuantity:
+                  type: integer
+                  description: Initial stock quantity
+                  minimum: 0
+      responses:
+        '201':
+          description: Gum pack created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GumPack'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri:
+          Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${CreateGumPackFunction.Arn}/invocations
+
+  /gum-packs/{packId}:
+    get:
+      summary: Get a specific gum pack
+      description: Retrieve a gum pack by its ID
+      operationId: getGumPack
+      parameters:
+        - name: packId
+          in: path
+          description: Gum pack ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GumPack'
+        '404':
+          description: Gum pack not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri:
+          Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetGumPackFunction.Arn}/invocations
+
+  /gum-packs/{packId}/stock:
+    put:
+      summary: Update gum pack stock
+      description: Update the stock quantity for a gum pack
+      operationId: updateGumPackStock
+      parameters:
+        - name: packId
+          in: path
+          description: Gum pack ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - quantity
+              properties:
+                quantity:
+                  type: integer
+                  description: New stock quantity
+                  minimum: 0
+      responses:
+        '200':
+          description: Stock updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GumPack'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Gum pack not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri:
+          Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${UpdateGumPackStockFunction.Arn}/invocations
+
+  /gum-packs/{packId}/ratings:
+    get:
+      summary: Get ratings for a gum pack
+      description: Retrieve all ratings for a specific gum pack, sorted by timestamp descending
+      operationId: getRatings
+      parameters:
+        - name: packId
+          in: path
+          description: Gum pack ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: limit
+          in: query
+          description: Maximum number of ratings to return
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 50
+        - name: lastKey
+          in: query
+          description: Pagination token from previous response
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ratings:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Rating'
+                  count:
+                    type: integer
+                  lastKey:
+                    type: string
+                    description: Pagination token for next page
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri:
+          Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetRatingsFunction.Arn}/invocations
+
+    post:
+      summary: Create a rating for a gum pack
+      description: Submit a rating for a specific gum pack
+      operationId: createRating
+      parameters:
+        - name: packId
+          in: path
+          description: Gum pack ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - rating
+              properties:
+                rating:
+                  type: integer
+                  description: Rating value (1-10)
+                  minimum: 1
+                  maximum: 10
+      responses:
+        '201':
+          description: Rating created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rating'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Gum pack not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri:
+          Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${CreateRatingFunction.Arn}/invocations
+
+components:
+  schemas:
+    GumPack:
+      type: object
+      properties:
+        packId:
+          type: string
+          format: uuid
+          description: Unique identifier for the gum pack
+        color:
+          type: string
+          description: Gum color
+        flavor:
+          type: string
+          description: Gum flavor
+        origin:
+          type: string
+          description: Gum origin
+        packSize:
+          type: integer
+          description: Number of pieces per pack
+        stockQuantity:
+          type: integer
+          description: Current stock quantity
+        averageRating:
+          type: number
+          format: float
+          description: Average rating (0-10)
+        ratingCount:
+          type: integer
+          description: Total number of ratings
+        createdAt:
+          type: string
+          format: date-time
+          description: Creation timestamp
+        updatedAt:
+          type: string
+          format: date-time
+          description: Last update timestamp
+
+    Rating:
+      type: object
+      properties:
+        ratingId:
+          type: string
+          format: uuid
+          description: Unique identifier for the rating
+        packId:
+          type: string
+          format: uuid
+          description: Gum pack identifier
+        rating:
+          type: integer
+          description: Rating value (1-10)
+          minimum: 1
+          maximum: 10
+        createdAt:
+          type: string
+          format: date-time
+          description: Creation timestamp
+
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+        code:
+          type: string
+          description: Error code
+        details:
+          type: object
+          description: Additional error details

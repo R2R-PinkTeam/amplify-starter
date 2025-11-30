@@ -1,0 +1,238 @@
+openapi: 3.0.0
+info:
+  title: Gum Products API
+  description: REST API for managing gum product catalog
+  version: 1.0.0
+
+paths:
+  /gum-products:
+    get:
+      summary: Get all gum products
+      description: Retrieve all gum products from the catalog
+      operationId: getGumProducts
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GumProduct'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri:
+          Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetGumProductsFunction.Arn}/invocations
+
+    post:
+      summary: Create a new gum product
+      description: Create a new gum product with specified attributes
+      operationId: createGumProduct
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - brandName
+                - color
+                - flavor
+                - packSize
+                - purchaseUrl
+              properties:
+                brandName:
+                  type: string
+                  description: Brand name of the gum
+                  minLength: 1
+                  example: "Dubble Bubble"
+                color:
+                  type: string
+                  description: Color of the gum
+                  minLength: 1
+                  example: "Pink"
+                flavor:
+                  type: string
+                  description: Flavor of the gum
+                  example: "Original"
+                packSize:
+                  type: integer
+                  description: Number of pieces per pack
+                  minimum: 1
+                  example: 5
+                purchaseUrl:
+                  type: string
+                  format: uri
+                  description: URL where users can purchase this gum
+                  pattern: '^https?://.+'
+                  example: "https://www.amazon.com/Dubble-Bubble-Gum"
+      responses:
+        '201':
+          description: Gum product created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GumProduct'
+        '400':
+          description: Bad request - validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri:
+          Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${CreateGumProductFunction.Arn}/invocations
+
+  /gum-products/{productId}:
+    get:
+      summary: Get a specific gum product
+      description: Retrieve a gum product by its ID
+      operationId: getGumProduct
+      parameters:
+        - name: productId
+          in: path
+          description: Gum product ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GumProduct'
+        '400':
+          description: Bad request - invalid product ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Gum product not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri:
+          Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetGumProductFunction.Arn}/invocations
+
+components:
+  schemas:
+    GumProduct:
+      type: object
+      required:
+        - productId
+        - brandName
+        - color
+        - flavor
+        - packSize
+        - purchaseUrl
+        - createdAt
+        - updatedAt
+      properties:
+        productId:
+          type: string
+          format: uuid
+          description: Unique identifier for the gum product
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        brandName:
+          type: string
+          description: Brand name of the gum
+          example: "Dubble Bubble"
+        color:
+          type: string
+          description: Color of the gum
+          example: "Pink"
+        flavor:
+          type: string
+          description: Flavor of the gum
+          example: "Original"
+        packSize:
+          type: integer
+          description: Number of pieces per pack
+          minimum: 1
+          example: 5
+        purchaseUrl:
+          type: string
+          format: uri
+          description: URL where users can purchase this gum
+          example: "https://www.amazon.com/Dubble-Bubble-Gum"
+        createdAt:
+          type: string
+          format: date-time
+          description: Creation timestamp
+          example: "2024-01-15T10:30:00Z"
+        updatedAt:
+          type: string
+          format: date-time
+          description: Last update timestamp
+          example: "2024-01-15T10:30:00Z"
+
+    Error:
+      type: object
+      required:
+        - error
+        - code
+      properties:
+        error:
+          type: string
+          description: Error message
+          example: "Invalid input data"
+        code:
+          type: string
+          description: Error code
+          example: "INVALID_INPUT"
+        details:
+          type: object
+          description: Additional error details
+          additionalProperties: true
+
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Api-Key
+
+# Global CORS configuration
+x-amazon-apigateway-cors:
+  allowOrigins:
+    - '*'
+  allowHeaders:
+    - 'Content-Type'
+    - 'X-Amz-Date'
+    - 'Authorization'
+    - 'X-Api-Key'
+    - 'X-Amz-Security-Token'
+  allowMethods:
+    - GET
+    - POST
+    - PUT
+    - DELETE
+    - OPTIONS
+  maxAge: 3600

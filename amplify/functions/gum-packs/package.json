@@ -1,0 +1,6 @@
+{
+  "name": "gum-packs-functions",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Lambda functions for gum packs API"
+}
