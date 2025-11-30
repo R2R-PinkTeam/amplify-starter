@@ -1,0 +1,29 @@
+[target]
+type = "aws-lambda"
+version = "1.0.0"
+
+[aws]
+region = "us-west-2"
+
+[server]
+name = "gum-wall-calculator"
+memory_mb = 512
+timeout_seconds = 30
+
+[environment]
+RUST_LOG = "info"
+
+[secrets]
+
+[auth]
+enabled = true
+callback_urls = ["http://localhost:3000/callback"]
+
+[observability]
+log_retention_days = 30
+enable_xray = true
+create_dashboard = true
+
+[observability.alarms]
+error_threshold = 10
+latency_threshold_ms = 5000

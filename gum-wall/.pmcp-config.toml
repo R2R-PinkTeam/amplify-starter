@@ -1,0 +1,3 @@
+[servers.gum-wall-calculator]
+port = 3000
+template = "minimal"

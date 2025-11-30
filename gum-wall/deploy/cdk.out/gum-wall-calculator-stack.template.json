@@ -1,0 +1,306 @@
+{
+ "Description": "MCP Server: gum-wall-calculator",
+ "Resources": {
+  "McpFunctionServiceRoleF37F17FC": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "gum-wall-calculator-stack/McpFunction/ServiceRole/Resource"
+   }
+  },
+  "McpFunctionServiceRoleDefaultPolicy29310C43": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "xray:PutTraceSegments",
+        "xray:PutTelemetryRecords"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "McpFunctionServiceRoleDefaultPolicy29310C43",
+    "Roles": [
+     {
+      "Ref": "McpFunctionServiceRoleF37F17FC"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "gum-wall-calculator-stack/McpFunction/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "McpFunctionF370A1F8": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Architectures": [
+     "arm64"
+    ],
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-148290399417-us-west-2",
+     "S3Key": "424f0d6e083feeb7a0564a247694aabe3a6c55942ee83cec1767f565ad90fb98.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "RUST_LOG": "info"
+     }
+    },
+    "FunctionName": "gum-wall-calculator",
+    "Handler": "bootstrap",
+    "MemorySize": 512,
+    "Role": {
+     "Fn::GetAtt": [
+      "McpFunctionServiceRoleF37F17FC",
+      "Arn"
+     ]
+    },
+    "Runtime": "provided.al2023",
+    "Timeout": 30,
+    "TracingConfig": {
+     "Mode": "Active"
+    }
+   },
+   "DependsOn": [
+    "McpFunctionServiceRoleDefaultPolicy29310C43",
+    "McpFunctionServiceRoleF37F17FC"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "gum-wall-calculator-stack/McpFunction/Resource",
+    "aws:asset:path": "asset.424f0d6e083feeb7a0564a247694aabe3a6c55942ee83cec1767f565ad90fb98",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "McpFunctionApiGatewayInvoke7BA02D3E": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "McpFunctionF370A1F8",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:aws:execute-api:us-west-2:148290399417:",
+       {
+        "Ref": "HttpApiF5A9A8A7"
+       },
+       "/*/*"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "gum-wall-calculator-stack/McpFunction/ApiGatewayInvoke"
+   }
+  },
+  "LogGroupF5B46931": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "LogGroupName": {
+     "Fn::Join": [
+      "",
+      [
+       "/aws/lambda/",
+       {
+        "Ref": "McpFunctionF370A1F8"
+       }
+      ]
+     ]
+    },
+    "RetentionInDays": 30
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "gum-wall-calculator-stack/LogGroup/Resource"
+   }
+  },
+  "HttpApiF5A9A8A7": {
+   "Type": "AWS::ApiGatewayV2::Api",
+   "Properties": {
+    "CorsConfiguration": {
+     "AllowHeaders": [
+      "*"
+     ],
+     "AllowMethods": [
+      "GET",
+      "POST",
+      "OPTIONS"
+     ],
+     "AllowOrigins": [
+      "*"
+     ]
+    },
+    "Description": "MCP Server HTTP API",
+    "Name": "gum-wall-calculator",
+    "ProtocolType": "HTTP"
+   },
+   "Metadata": {
+    "aws:cdk:path": "gum-wall-calculator-stack/HttpApi/Resource"
+   }
+  },
+  "HttpApiDefaultStage3EEB07D6": {
+   "Type": "AWS::ApiGatewayV2::Stage",
+   "Properties": {
+    "ApiId": {
+     "Ref": "HttpApiF5A9A8A7"
+    },
+    "AutoDeploy": true,
+    "StageName": "$default"
+   },
+   "Metadata": {
+    "aws:cdk:path": "gum-wall-calculator-stack/HttpApi/DefaultStage/Resource"
+   }
+  },
+  "Integration": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "HttpApiF5A9A8A7"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::GetAtt": [
+      "McpFunctionF370A1F8",
+      "Arn"
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "gum-wall-calculator-stack/Integration"
+   }
+  },
+  "Route": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "HttpApiF5A9A8A7"
+    },
+    "RouteKey": "POST /{proxy+}",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "Integration"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "gum-wall-calculator-stack/Route"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/02O3WrDMAyFn6X3jpalN7ttB/uBwUr2AEV1NKMmsUMktxTjd1+c0bGr7xzpCJ0Gmm0N9QavUtmurwY+QfpStL1ZRsc04HjqENJL9FY5ePP87f/rA80jiywuG8YRUhsGKouVhzCwva25VWUj2yOKkArsChYP+2h70j0KmSE4gfQR3Osc4lTu7jobnNih0hVvlwbSm+q0m7hECopdWrv19Z9490puxnvXNkSlnE1LEuJsyawVSpq9K4HPqFPUbHzoCM7ycGlqeILHzVmYqzl65ZGg/eUPoig2DzkBAAA="
+   },
+   "Metadata": {
+    "aws:cdk:path": "gum-wall-calculator-stack/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "ApiUrl": {
+   "Description": "MCP Server API URL",
+   "Value": {
+    "Fn::GetAtt": [
+     "HttpApiF5A9A8A7",
+     "ApiEndpoint"
+    ]
+   }
+  },
+  "OAuthDiscoveryUrl": {
+   "Description": "OAuth Discovery URL (coming in next phase)",
+   "Value": "https://oauth-coming-soon"
+  },
+  "ClientId": {
+   "Description": "OAuth Client ID (coming in next phase)",
+   "Value": "client-id-coming-soon"
+  },
+  "DashboardUrl": {
+   "Description": "CloudWatch Console",
+   "Value": "https://console.aws.amazon.com/cloudwatch/home?region=us-west-2"
+  },
+  "UserPoolId": {
+   "Description": "Cognito User Pool ID (coming in next phase)",
+   "Value": "user-pool-coming-soon"
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

@@ -1,0 +1,9 @@
+{
+  "gum-wall-calculator-stack": {
+    "ApiUrl": "https://ieyjwkygzg.execute-api.us-west-2.amazonaws.com",
+    "UserPoolId": "user-pool-coming-soon",
+    "OAuthDiscoveryUrl": "https://oauth-coming-soon",
+    "ClientId": "client-id-coming-soon",
+    "DashboardUrl": "https://console.aws.amazon.com/cloudwatch/home?region=us-west-2"
+  }
+}

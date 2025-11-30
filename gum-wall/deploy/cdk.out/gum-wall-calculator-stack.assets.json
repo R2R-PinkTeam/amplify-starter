@@ -1,0 +1,36 @@
+{
+  "version": "48.0.0",
+  "files": {
+    "424f0d6e083feeb7a0564a247694aabe3a6c55942ee83cec1767f565ad90fb98": {
+      "displayName": "McpFunction/Code",
+      "source": {
+        "path": "asset.424f0d6e083feeb7a0564a247694aabe3a6c55942ee83cec1767f565ad90fb98",
+        "packaging": "zip"
+      },
+      "destinations": {
+        "148290399417-us-west-2-a5cb2c39": {
+          "bucketName": "cdk-hnb659fds-assets-148290399417-us-west-2",
+          "objectKey": "424f0d6e083feeb7a0564a247694aabe3a6c55942ee83cec1767f565ad90fb98.zip",
+          "region": "us-west-2",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::148290399417:role/cdk-hnb659fds-file-publishing-role-148290399417-us-west-2"
+        }
+      }
+    },
+    "3b23bb5e68130ef21c6768f21548ed5c4d445fdfeec1d006d6ae8d3987eaf246": {
+      "displayName": "gum-wall-calculator-stack Template",
+      "source": {
+        "path": "gum-wall-calculator-stack.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "148290399417-us-west-2-abfcaaaa": {
+          "bucketName": "cdk-hnb659fds-assets-148290399417-us-west-2",
+          "objectKey": "3b23bb5e68130ef21c6768f21548ed5c4d445fdfeec1d006d6ae8d3987eaf246.json",
+          "region": "us-west-2",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::148290399417:role/cdk-hnb659fds-file-publishing-role-148290399417-us-west-2"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

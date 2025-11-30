@@ -1,0 +1,59 @@
+[profile.release]
+codegen-units = 1
+lto = true
+opt-level = "z"
+strip = true
+
+[workspace]
+members = ["crates/server-common", "crates/mcp-gum-wall-calculator-core", "crates/gum-wall-calculator-server", "gum-wall-calculator-lambda"]
+resolver = "2"
+
+[workspace.dependencies]
+anyhow = "1"
+aws-config = "1"
+aws-sdk-s3 = "1"
+axum = "0.7"
+base64 = "0.22"
+image = "0.25"
+serde_json = "1"
+thiserror = "1"
+tracing = "0.1"
+
+[workspace.dependencies.pmcp]
+features = ["streamable-http", "schema-generation"]
+path = "/Users/guy/Development/mcp/sdk/rust-mcp-sdk"
+
+[workspace.dependencies.reqwest]
+version = "0.12"
+default-features = false
+features = ["json", "rustls-tls"]
+
+[workspace.dependencies.schemars]
+features = ["preserve_order"]
+version = "1.0"
+
+[workspace.dependencies.serde]
+features = ["derive"]
+version = "1"
+
+[workspace.dependencies.tokio]
+features = ["full"]
+version = "1"
+
+[workspace.dependencies.tower-http]
+features = ["trace", "cors"]
+version = "0.6"
+
+[workspace.dependencies.tracing-subscriber]
+features = ["env-filter"]
+version = "0.3"
+
+[workspace.dependencies.validator]
+features = ["derive"]
+version = "0.18"
+
+[workspace.package]
+authors = ["Your Name <you@example.com>"]
+edition = "2021"
+license = "MIT OR Apache-2.0"
+version = "0.1.0"

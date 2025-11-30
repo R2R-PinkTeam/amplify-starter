@@ -26,6 +26,19 @@ const schema = a.schema({
       isCompleted: a.boolean().default(false),
     })
     .authorization((allow) => [allow.publicApiKey()]),
+
+  // Gum Wall Calculator - Price list for different gum types
+  GumType: a
+    .model({
+      gumId: a.string().required(),      // Unique identifier (e.g., "dubble_bubble_pink")
+      name: a.string().required(),        // Display name (e.g., "Dubble Bubble Original")
+      hexColor: a.string().required(),    // Hex color code (e.g., "#FF69B4")
+      pricePerPiece: a.float().required(), // Price in USD (e.g., 0.05)
+      brand: a.string(),                  // Brand name (e.g., "Dubble Bubble")
+      flavor: a.string(),                 // Flavor description
+      isAvailable: a.boolean().default(true),
+    })
+    .authorization((allow) => [allow.publicApiKey()]),
 });
 
 export type Schema = ClientSchema<typeof schema>;
