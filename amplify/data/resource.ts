@@ -5,6 +5,19 @@ This schema defines the data models for the gum rating interface, including
 gum packs, ratings, orders, and celebrity endorsement requests.
 =========================================================================*/
 const schema = a.schema({
+  GumProduct: a
+    .model({
+      productId: a.id().required(),
+      brandName: a.string().required(),
+      color: a.string().required(),
+      flavor: a.string().required(),
+      packSize: a.integer().required(),
+      createdAt: a.datetime().required(),
+      updatedAt: a.datetime().required(),
+    })
+    .identifier(['productId'])
+    .authorization((allow) => [allow.publicApiKey()]),
+
   GumPack: a
     .model({
       packId: a.id().required(),
