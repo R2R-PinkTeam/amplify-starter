@@ -2,7 +2,10 @@
   "mcpServers": {
     "shadcn": {
       "command": "npx",
-      "args": ["shadcn@latest", "mcp"],
+      "args": [
+        "shadcn@latest",
+        "mcp"
+      ],
       "disabled": true,
       "autoApprove": [
         "search_items_in_registries",
@@ -15,14 +18,21 @@
     },
     "sequential-thinking": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"],
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-sequential-thinking"
+      ],
       "env": {},
       "disabled": false,
-      "autoApprove": ["sequentialthinking"]
+      "autoApprove": [
+        "sequentialthinking"
+      ]
     },
     "playwright": {
       "command": "npx",
-      "args": ["@playwright/mcp@latest"],
+      "args": [
+        "@playwright/mcp@latest"
+      ],
       "env": {},
       "disabled": true,
       "autoApprove": [
@@ -35,17 +45,25 @@
     },
     "aws-documentation-mcp-server": {
       "command": "uvx",
-      "args": ["awslabs.aws-documentation-mcp-server@latest"],
+      "args": [
+        "awslabs.aws-documentation-mcp-server@latest"
+      ],
       "env": {
         "FASTMCP_LOG_LEVEL": "ERROR",
         "AWS_DOCUMENTATION_PARTITION": "aws"
       },
       "disabled": true,
-      "autoApprove": ["search_documentation", "read_documentation", "recommend"]
+      "autoApprove": [
+        "search_documentation",
+        "read_documentation",
+        "recommend"
+      ]
     },
     "aws-diagram-mcp-server": {
       "command": "uvx",
-      "args": ["awslabs.aws-diagram-mcp-server"],
+      "args": [
+        "awslabs.aws-diagram-mcp-server"
+      ],
       "env": {
         "FASTMCP_LOG_LEVEL": "ERROR"
       },
@@ -59,7 +77,9 @@
     },
     "awslabs.code-doc-gen-mcp-server": {
       "command": "uvx",
-      "args": ["awslabs.code-doc-gen-mcp-server@latest"],
+      "args": [
+        "awslabs.code-doc-gen-mcp-server@latest"
+      ],
       "env": {
         "FASTMCP_LOG_LEVEL": "ERROR"
       },
@@ -68,12 +88,18 @@
     },
     "aws-knowledge-mcp-server": {
       "command": "uvx",
-      "args": ["fastmcp", "run", "https://knowledge-mcp.global.api.aws"],
+      "args": [
+        "fastmcp",
+        "run",
+        "https://knowledge-mcp.global.api.aws"
+      ],
       "disabled": true
     },
     "awslabs.terraform-mcp-server": {
       "command": "uvx",
-      "args": ["awslabs.terraform-mcp-server@latest"],
+      "args": [
+        "awslabs.terraform-mcp-server@latest"
+      ],
       "env": {
         "FASTMCP_LOG_LEVEL": "ERROR"
       },
@@ -91,16 +117,28 @@
     },
     "bedrock-agentcore-mcp-server": {
       "command": "uvx",
-      "args": ["awslabs.amazon-bedrock-agentcore-mcp-server@latest"],
+      "args": [
+        "awslabs.amazon-bedrock-agentcore-mcp-server@latest"
+      ],
       "env": {
         "FASTMCP_LOG_LEVEL": "ERROR"
       },
       "disabled": false,
-      "autoApprove": ["search_agentcore_docs", "fetch_agentcore_doc"]
+      "autoApprove": [
+        "search_agentcore_docs",
+        "fetch_agentcore_doc"
+      ]
     },
     "strands-agents": {
       "command": "uvx",
-      "args": ["strands-agents-mcp-server"]
+      "args": [
+        "strands-agents-mcp-server"
+      ],
+      "disabled": false,
+      "autoApprove": [
+        "search_docs",
+        "fetch_doc"
+      ]
     }
   }
 }
