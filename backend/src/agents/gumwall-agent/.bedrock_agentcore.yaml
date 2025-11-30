@@ -1,0 +1,54 @@
+default_agent: gumwallagent
+agents:
+  gumwallagent:
+    name: gumwallagent
+    entrypoint: agent.py
+    deployment_type: container
+    runtime_type: null
+    platform: linux/amd64
+    container_runtime: null
+    source_path: null
+    aws:
+      execution_role: arn:aws:iam::148290399417:role/AmazonBedrockAgentCoreSDKRuntime-us-west-2-eb736912f3
+      execution_role_auto_create: false
+      account: '148290399417'
+      region: us-west-2
+      ecr_repository: 148290399417.dkr.ecr.us-west-2.amazonaws.com/bedrock-agentcore-gumwall-agent
+      ecr_auto_create: false
+      s3_path: null
+      s3_auto_create: false
+      network_configuration:
+        network_mode: PUBLIC
+        network_mode_config: null
+      protocol_configuration:
+        server_protocol: HTTP
+      observability:
+        enabled: true
+      lifecycle_configuration:
+        idle_runtime_session_timeout: null
+        max_lifetime: null
+    bedrock_agentcore:
+      agent_id: gumwallagent-jsKzlk7a9v
+      agent_arn: arn:aws:bedrock-agentcore:us-west-2:148290399417:runtime/gumwallagent-jsKzlk7a9v
+      agent_session_id: caf108a5-a6d1-4896-aee7-c3404335db82
+    codebuild:
+      project_name: bedrock-agentcore-gumwall-agent-builder
+      execution_role: arn:aws:iam::148290399417:role/AmazonBedrockAgentCoreSDKCodeBuild-us-west-2-eb736912f3
+      source_bucket: bedrock-agentcore-codebuild-sources-148290399417-us-west-2
+    memory:
+      mode: NO_MEMORY
+      memory_id: null
+      memory_arn: null
+      memory_name: null
+      event_expiry_days: 30
+      first_invoke_memory_check_done: false
+      was_created_by_toolkit: false
+    identity:
+      credential_providers: []
+      workload: null
+    authorizer_configuration: null
+    request_header_configuration: null
+    oauth_configuration: null
+    api_key_env_var_name: null
+    api_key_credential_provider_name: null
+    is_generated_by_agentcore_create: false
