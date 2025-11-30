@@ -1,11 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Authenticator } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 import App from "./App.tsx";
 import Setup from "./Setup.tsx";
 import Presentation from "./Presentation.tsx";
+import LandingPage from "./components/LandingPage.tsx";
+import AuthPage from "./components/AuthPage.tsx";
+import Dashboard from "./components/Dashboard.tsx";
 import "./index.css";
 import { Amplify } from "aws-amplify";
 import outputs from "../amplify_outputs.json";
@@ -16,20 +19,40 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        {/* Presentation is public - no auth required */}
+        {/* Public routes */}
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/login" element={<AuthPage />} />
+        <Route path="/signup" element={<AuthPage />} />
         <Route path="/presentation" element={<Presentation />} />
+
         {/* Protected routes */}
         <Route
-          path="/*"
+          path="/dashboard"
           element={
             <Authenticator>
-              <Routes>
-                <Route path="/" element={<App />} />
-                <Route path="/setup" element={<Setup />} />
-              </Routes>
+              <Dashboard />
             </Authenticator>
           }
         />
+        <Route
+          path="/app"
+          element={
+            <Authenticator>
+              <App />
+            </Authenticator>
+          }
+        />
+        <Route
+          path="/setup"
+          element={
+            <Authenticator>
+              <Setup />
+            </Authenticator>
+          }
+        />
+
+        {/* Catch all - redirect to landing */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

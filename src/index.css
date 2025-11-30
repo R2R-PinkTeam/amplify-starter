@@ -1,65 +1,79 @@
-body {
-  margin: 0;
-  background: linear-gradient(180deg, rgb(117, 81, 194), rgb(255, 255, 255));
-  display: flex;
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  height: 100vh;
-  width: 100vw;
-  justify-content: center;
-  align-items: center;
+/* Additional styles for GumWall app */
+#root {
+  min-height: 100vh;
 }
 
-main {
+/* Amplify UI Customization for GumWall theme */
+[data-amplify-authenticator] {
+  --amplify-colors-brand-primary-10: #FFE5EF;
+  --amplify-colors-brand-primary-20: #FFCCE0;
+  --amplify-colors-brand-primary-40: #FF99C2;
+  --amplify-colors-brand-primary-60: #FF6B9D;
+  --amplify-colors-brand-primary-80: #FF6B9D;
+  --amplify-colors-brand-primary-90: #C44569;
+  --amplify-colors-brand-primary-100: #C44569;
+  --amplify-components-button-primary-background-color: #FF6B9D;
+  --amplify-components-button-primary-hover-background-color: #C44569;
+  --amplify-components-button-link-color: #FF6B9D;
+  --amplify-components-tabs-item-active-border-color: #FF6B9D;
+  --amplify-components-tabs-item-active-color: #FF6B9D;
+  --amplify-components-tabs-item-focus-color: #FF6B9D;
+  --amplify-components-tabs-item-hover-color: #C44569;
+}
+
+[data-amplify-authenticator] [data-amplify-router] {
+  border: none;
+  box-shadow: none;
+  background: transparent;
+  max-width: 100%;
+  width: 100%;
+}
+
+/* Constrain Amplify form width */
+[data-amplify-authenticator] form {
+  max-width: 100%;
+  width: 100%;
+}
+
+[data-amplify-authenticator] .amplify-input,
+[data-amplify-authenticator] .amplify-field,
+[data-amplify-authenticator] .amplify-field-group {
+  max-width: 100%;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+[data-amplify-authenticator] .amplify-button {
+  max-width: 100%;
+  width: 100%;
+}
+
+/* Style the Amplify form buttons */
+[data-amplify-authenticator] button[type="submit"] {
+  background: linear-gradient(135deg, #FF6B9D, #C44569) !important;
+  border: none !important;
+}
+
+[data-amplify-authenticator] button[type="submit"]:hover {
+  background: linear-gradient(135deg, #C44569, #FF6B9D) !important;
+}
+
+/* Style the Amplify links */
+[data-amplify-authenticator] a {
+  color: #FF6B9D !important;
+}
+
+[data-amplify-authenticator] a:hover {
+  color: #C44569 !important;
+}
+
+/* Override some Listty styles for better integration */
+.main-wrapper {
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: stretch;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-  color: white;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-ul {
-  padding-inline-start: 0;
-  margin-block-start: 0;
-  margin-block-end: 0;
-  list-style-type: none;
-  display: flex;
-  flex-direction: column;
-  margin: 8px 0;
-  border: 1px solid black;
-  gap: 1px;
-  background-color: black;
-  border-radius: 8px;
-  overflow: auto;
-}
-
-li {
-  background-color: white;
-  padding: 8px;
-}
-
-li:hover {
-  background: #dadbf9;
-}
-
-a {
-  font-weight: 800;
-  text-decoration: none;
+.bg-light {
+  background-color: #f8f9fa !important;
 }
