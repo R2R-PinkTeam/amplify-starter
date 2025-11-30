@@ -1,79 +1,83 @@
 # Product Overview
 
-This repository contains a multi-agent collaboration system for the complete software development lifecycle, built using AWS serverless technologies including Amazon Bedrock AgentCore and AWS Strands.
+GumWall.ai is a monumentally over-engineered AI-powered platform that helps users plan and create their own gum walls. Built using AWS serverless technologies including Amazon Bedrock AgentCore and AWS Strands SDK.
 
 ## Purpose
 
-Transform software development from fragmented, manual processes to an integrated, AI-powered development ecosystem where specialized agents collaborate to handle the entire software development lifecycle.
+Help aspiring gum wall creators evaluate wall suitability, generate city council proposals, and track progress toward Seattle-level gum density (approximately 1 million pieces).
 
 ## Problem Statement
 
-Software development teams struggle with:
+Aspiring gum wall creators struggle with:
 
-- Fragmented tools and processes across the development lifecycle
-- Manual, repetitive tasks that slow down development velocity
-- Inconsistent code quality and architectural decisions
-- Lack of continuous monitoring and optimization throughout the lifecycle
-- Knowledge silos between different phases (design, development, testing, deployment)
-- Time-consuming code reviews and documentation processes
+- No way to evaluate if their wall is suitable for gum
+- Difficulty creating formal proposals for city councils
+- No tracking of progress toward iconic gum wall status
+- Lack of AI-powered snark in their gum wall planning process
 
-## Solution: An AI Development Team
-Instead of disparate tools and manual processes, we present a collaborative team of AI agents that work together to handle the complete software development lifecycle:
+## Solution: GumWall.ai Multi-Agent System
 
-### Potential Core Agents (To Be Defined)
+A single orchestrator agent with three specialized tools, each with a distinct personality:
 
-1. **Architecture Agent** → Analyzes requirements and designs system architecture, technology stack recommendations
-2. **Code Generation Agent** → Writes code based on specifications, follows best practices and patterns
-3. **Code Review Agent** → Reviews code for quality, security, performance, and adherence to standards
-4. **Testing Agent** → Generates comprehensive test suites, identifies edge cases, ensures coverage
-5. **Documentation Agent** → Creates and maintains technical documentation, API docs, user guides
-6. **Deployment Agent** → Handles CI/CD pipeline configuration, infrastructure as code, deployment strategies
-7. **Monitoring Agent** → Sets up observability, analyzes performance metrics, identifies optimization opportunities
+### Core Tools
 
-### Potential Stretch Goals
+1. **Site Selection Tool** (Gordon Ramsay personality) → Analyzes wall photos and returns a Gum Receptivity Score (0-100)
+2. **Proposal Tool** (Passive-aggressive HOA president personality) → Generates formal city council proposals with a "Hygiene Concerns (We Can't Address)" section
+3. **Progress Tracker Tool** (Gen-Z hype beast personality) → Estimates gum count and calculates percentage toward 1 million pieces
 
-- **Security Agent** → Performs security audits, vulnerability assessments, compliance checks
-- **Performance Agent** → Analyzes and optimizes application performance
-- **Project Management Agent** → Tracks progress, estimates timelines, manages dependencies
+### Output
+
+A unified **Feasibility Report** combining all three agent outputs with attribution.
 
 ## Key Features
 
-- **Specialized AI Agents**: Each agent focuses on a specific phase of the development lifecycle
-- **Collaborative Intelligence**: Agents work together, sharing context and building upon each other's work
-- **Continuous Integration**: Seamless handoffs between development phases
-- **Quality Assurance**: Built-in quality gates and best practice enforcement
-- **Adaptive Learning**: Agents learn from project patterns and team preferences
-- **Serverless Architecture**: Built on AWS with automatic scaling and cost optimization
+- **Image Analysis**: Upload wall photos for AI-powered gum receptivity scoring
+- **Personality-Driven Responses**: Each tool has a distinct, entertaining personality
+- **Formal Proposal Generation**: Ready-to-submit city council proposals
+- **Progress Tracking**: Know exactly how far you are from Seattle-level density
+- **Conversational AI Chat**: Ask questions about costs, recommended color palettes, gum types, maintenance tips, and more
+- **MCP Client Integration**: Agent can call external MCP servers for additional tools
+- **Serverless Architecture**: Built on AWS with AgentCore Runtime
 
 ## Target Users
 
-- Software development teams looking to accelerate their development velocity
-- Organizations wanting to standardize and improve their development processes
-- Startups and small teams needing comprehensive development support without large overhead
-- Enterprise teams seeking to reduce manual overhead and improve code quality
-- Individual developers wanting AI assistance throughout the development process
+- Aspiring gum wall creators
+- City council proposal writers
+- People who appreciate over-engineered solutions to problems nobody has
+- Hackathon judges who appreciate humor
+
+## Conversational Features
+
+Users can chat with the AI to ask questions like:
+
+- "How much will this gum wall cost to create?"
+- "What color palette would look best on my brick wall?"
+- "What types of gum stick best?"
+- "How do I maintain a gum wall?"
+- "What's the history of the Seattle Gum Wall?"
 
 ## Technical Architecture
 
-- **AWS Serverless**: Lambda, API Gateway, DynamoDB
-- **AI/ML Platform**: Amazon Bedrock AgentCore (Runtime, Identity, Memory, Gateway, Observability)
-- **Agent Framework**: AWS Strands SDK (open-source framework with model-first approach)
-- **Infrastructure**: SAM (Serverless Application Model) for IaC
-- **Deployment**: GitHub Actions for CI/CD
-- **Runtime**: Node.js 22.x with ESM modules
+- **Storage**: Amazon S3 (image uploads)
+- **Database**: Amazon DynamoDB (session storage, analysis results)
+- **API**: AWS Lambda + API Gateway
+- **AI/ML Platform**: Amazon Bedrock (Claude Sonnet 4)
+- **Agent Framework**: AWS Strands SDK with BedrockAgentCoreApp wrapper
+- **Agent Runtime**: Amazon Bedrock AgentCore Runtime
+- **MCP Integration**: MCPClient for external tool access
+- **Infrastructure**: SAM (Serverless Application Model)
 
-## Development Strategy
+## Core Flow
 
-Incremental development approach:
-
-1. Build one agent at a time
-2. Establish agent collaboration patterns
-3. Integrate agents into a cohesive system
-4. Scale and optimize based on usage patterns
+1. User uploads wall image to S3 bucket
+2. User sends S3 URL to AgentCore Runtime endpoint
+3. GumWall Agent calls site_selection_tool
+4. GumWall Agent calls proposal_tool (if wall passes)
+5. GumWall Agent calls progress_tool
+6. Agent returns unified Feasibility Report
 
 ## Development Status
 
-- Initial setup phase
-- Product vision and architecture defined
-- Ready to begin agent-by-agent implementation
-- Infrastructure patterns and best practices established
+- Spec and design complete
+- Ready for implementation
+- POC scope: Tools + AgentCore deployment (teammates handle S3 infrastructure)
