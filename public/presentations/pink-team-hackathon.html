@@ -357,6 +357,72 @@
                     </aside>
                 </section>
 
+                <!-- Gum Wall Demo -->
+                <section>
+                    <section>
+                        <h2>Chew By Numbers</h2>
+                        <p class="emoji-large">🍬</p>
+                        <h3>Gum Wall Calculator Demo</h3>
+                        <p>Transform any image into a gum mosaic masterpiece!</p>
+                        <aside class="notes">
+                            Introducing our fun demo: the Gum Wall Calculator powered by MCP and AWS services.
+                        </aside>
+                    </section>
+                    <section>
+                        <h3>How It Works</h3>
+                        <div class="feature-grid">
+                            <div class="feature-item fragment">
+                                <div class="icon">📷</div>
+                                <div class="title">Upload Image</div>
+                                <div class="desc">Store in S3 bucket</div>
+                            </div>
+                            <div class="feature-item fragment">
+                                <div class="icon">🤖</div>
+                                <div class="title">AI Analysis</div>
+                                <div class="desc">Bedrock analyzes colors</div>
+                            </div>
+                            <div class="feature-item fragment">
+                                <div class="icon">🎨</div>
+                                <div class="title">Gum Matching</div>
+                                <div class="desc">Match to gum colors</div>
+                            </div>
+                            <div class="feature-item fragment">
+                                <div class="icon">📊</div>
+                                <div class="title">Generate Plan</div>
+                                <div class="desc">SVG + cost breakdown</div>
+                            </div>
+                        </div>
+                        <aside class="notes">
+                            The system uses S3 for storage, Bedrock for AI image analysis, DynamoDB for gum types, and generates a complete build plan.
+                        </aside>
+                    </section>
+                    <section data-background-iframe="gum-wall-results.html" data-background-interactive>
+                        <div style="position: absolute; top: 0; left: 0; background: rgba(26, 10, 20, 0.9); padding: 0.5em 1em; border-radius: 0 0 10px 0;">
+                            <h3 style="margin: 0; font-size: 0.8em;">Gum Wall Results</h3>
+                        </div>
+                        <aside class="notes">
+                            This is the interactive gum wall results page showing the full analysis of Jeff Barr's image converted to a 50x50 gum mosaic.
+                        </aside>
+                    </section>
+                    <section>
+                        <h3>Results Summary</h3>
+                        <div class="idea-box">
+                            <p><strong>Image:</strong> Jeff Barr (50cm x 50cm wall)</p>
+                            <p><strong>Total Gum Pieces:</strong> 2,500</p>
+                            <p><strong>Total Cost:</strong> $229.92</p>
+                            <p><strong>Chewing Time:</strong> 208 hours</p>
+                        </div>
+                        <p style="margin-top: 1em;">
+                            <a href="gum-wall-results.html" target="_blank" style="color: #FF69B4;">
+                                View Full Interactive Results →
+                            </a>
+                        </p>
+                        <aside class="notes">
+                            The calculator provides a complete breakdown including costs, gum counts by type, and a chew-by-numbers SVG guide.
+                        </aside>
+                    </section>
+                </section>
+
                 <!-- Thank You -->
                 <section>
                     <p class="thank-you">Thank You!</p>
