@@ -98,7 +98,7 @@ export default function Dashboard() {
                   <p className="text-muted mb-4">
                     View and manage your saved designs
                   </p>
-                  <button className="btn btn-primary w-100">View All</button>
+                  <Link to="/my-designs" className="btn btn-primary w-100">View All</Link>
                 </div>
               </div>
             </div>

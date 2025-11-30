@@ -9,6 +9,7 @@ import Presentation from "./Presentation.tsx";
 import LandingPage from "./components/LandingPage.tsx";
 import AuthPage from "./components/AuthPage.tsx";
 import Dashboard from "./components/Dashboard.tsx";
+import MyDesigns from "./components/MyDesigns.tsx";
 import "./index.css";
 import { Amplify } from "aws-amplify";
 import outputs from "../amplify_outputs.json";
@@ -31,6 +32,14 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           element={
             <Authenticator>
               <Dashboard />
+            </Authenticator>
+          }
+        />
+        <Route
+          path="/my-designs"
+          element={
+            <Authenticator>
+              <MyDesigns />
             </Authenticator>
           }
         />
