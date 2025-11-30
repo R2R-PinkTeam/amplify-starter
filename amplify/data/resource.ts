@@ -1,30 +1,65 @@
 import { type ClientSchema, a, defineData } from "@aws-amplify/backend";
 
-/*== AWS re:Invent 2025 Pink Team Competition Platform ==================
-This schema defines the data models for our competition platform, including
-team challenges, submissions, and progress tracking.
+/*== Gum Rating Interface Data Schema ====================================
+This schema defines the data models for the gum rating interface, including
+gum packs, ratings, orders, and celebrity endorsement requests.
 =========================================================================*/
 const schema = a.schema({
-  Todo: a
+  GumPack: a
     .model({
-      content: a.string(),
-      priority: a.enum(["LOW", "MEDIUM", "HIGH"]),
-      category: a.string(),
-      completed: a.boolean().default(false),
-      assignedTo: a.string(),
-      dueDate: a.datetime(),
+      packId: a.id().required(),
+      name: a.string().required(),
+      color: a.string().required(),
+      flavor: a.string().required(),
+      origin: a.string().required(),
+      stock: a.integer().required().default(0),
+      price: a.float().required(),
+      averageRating: a.float().default(0),
+      totalRatings: a.integer().default(0),
+      description: a.string(),
+      imageUrl: a.string(),
     })
+    .identifier(['packId'])
     .authorization((allow) => [allow.publicApiKey()]),
     
-  Challenge: a
+  Rating: a
     .model({
-      title: a.string().required(),
-      description: a.string(),
-      points: a.integer().default(0),
-      difficulty: a.enum(["BEGINNER", "INTERMEDIATE", "ADVANCED"]),
-      category: a.string(),
-      isCompleted: a.boolean().default(false),
+      ratingId: a.id().required(),
+      packId: a.string().required(),
+      rating: a.integer().required(),
+      comment: a.string(),
+      userName: a.string(),
+      createdAt: a.datetime().required(),
     })
+    .identifier(['packId', 'ratingId'])
+    .authorization((allow) => [allow.publicApiKey()]),
+    
+  Order: a
+    .model({
+      orderId: a.id().required(),
+      items: a.json().required(),
+      totalAmount: a.float().required(),
+      status: a.enum(['PENDING', 'PROCESSING', 'SHIPPED', 'DELIVERED', 'CANCELLED']).default('PENDING'),
+      shippingAddress: a.json().required(),
+      createdAt: a.datetime().required(),
+      updatedAt: a.datetime(),
+    })
+    .identifier(['orderId'])
+    .authorization((allow) => [allow.publicApiKey()]),
+    
+  CelebrityRequest: a
+    .model({
+      requestId: a.id().required(),
+      celebrity: a.enum(['Emma Watson', 'Brad Pitt']).required(),
+      packId: a.string().required(),
+      destination: a.string().required(),
+      status: a.enum(['PENDING', 'APPROVED', 'REJECTED', 'COMPLETED']).default('PENDING'),
+      requestedBy: a.string(),
+      notes: a.string(),
+      createdAt: a.datetime().required(),
+      updatedAt: a.datetime(),
+    })
+    .identifier(['requestId'])
     .authorization((allow) => [allow.publicApiKey()]),
 
   // Gum Wall Calculator - Price list for different gum types
@@ -52,5 +87,3 @@ export const data = defineData({
     },
   },
 });
-
-// return <ul>{todos.map(todo => <li key={todo.id}>{todo.content}</li>)}</ul>
