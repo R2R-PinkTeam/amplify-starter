@@ -196,7 +196,7 @@ function App() {
         borderTop: '1px solid #FFB6C1',
         paddingTop: '2rem'
       }}>
-        <div style={{ marginBottom: '1rem' }}>
+        <div style={{ marginBottom: '1rem', display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
           <a
             href="/setup"
             style={{
@@ -220,6 +220,30 @@ function App() {
             }}
           >
             📋 Setup Guide
+          </a>
+          <a
+            href="/presentation"
+            style={{
+              color: '#FF1493',
+              textDecoration: 'none',
+              fontSize: '1.1rem',
+              fontWeight: 'bold',
+              padding: '10px 20px',
+              border: '2px solid #FF69B4',
+              borderRadius: '8px',
+              display: 'inline-block',
+              transition: 'all 0.3s ease'
+            }}
+            onMouseOver={(e) => {
+              e.currentTarget.style.background = 'linear-gradient(45deg, #FF69B4, #FF1493)';
+              e.currentTarget.style.color = 'white';
+            }}
+            onMouseOut={(e) => {
+              e.currentTarget.style.background = 'transparent';
+              e.currentTarget.style.color = '#FF1493';
+            }}
+          >
+            🎬 Presentation
           </a>
         </div>
         <div>
