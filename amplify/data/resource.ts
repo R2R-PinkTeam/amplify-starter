@@ -21,7 +21,7 @@ const schema = a.schema({
     })
     .identifier(['packId'])
     .authorization((allow) => [allow.publicApiKey()]),
-    
+
   Rating: a
     .model({
       ratingId: a.id().required(),
@@ -33,27 +33,27 @@ const schema = a.schema({
     })
     .identifier(['packId', 'ratingId'])
     .authorization((allow) => [allow.publicApiKey()]),
-    
+
   Order: a
     .model({
       orderId: a.id().required(),
       items: a.json().required(),
       totalAmount: a.float().required(),
-      status: a.enum(['PENDING', 'PROCESSING', 'SHIPPED', 'DELIVERED', 'CANCELLED']).default('PENDING'),
+      status: a.enum(['PENDING', 'PROCESSING', 'SHIPPED', 'DELIVERED', 'CANCELLED']),
       shippingAddress: a.json().required(),
       createdAt: a.datetime().required(),
       updatedAt: a.datetime(),
     })
     .identifier(['orderId'])
     .authorization((allow) => [allow.publicApiKey()]),
-    
+
   CelebrityRequest: a
     .model({
       requestId: a.id().required(),
-      celebrity: a.enum(['Emma Watson', 'Brad Pitt']).required(),
+      celebrity: a.enum(['EMMA_WATSON', 'BRAD_PITT']),
       packId: a.string().required(),
       destination: a.string().required(),
-      status: a.enum(['PENDING', 'APPROVED', 'REJECTED', 'COMPLETED']).default('PENDING'),
+      status: a.enum(['PENDING', 'APPROVED', 'REJECTED', 'COMPLETED']),
       requestedBy: a.string(),
       notes: a.string(),
       createdAt: a.datetime().required(),

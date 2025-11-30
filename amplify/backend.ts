@@ -13,8 +13,5 @@ const backend = defineBackend({
   storage,
 });
 
-// Access the data stack for custom configurations if needed
-const { cfnResources } = backend.data;
-
 // Note: Amplify Gen 2 automatically creates optimized DynamoDB tables
-// Additional customizations can be added here using CDK constructs
+// Additional customizations can be added here using CDK constructs if needed
