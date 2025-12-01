@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gum Wall Design - Jeff Barr CBN</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            text-align: center;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 30px;
+            font-size: 1.2em;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        .card h2 {
+            color: #333;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .stat-box {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .stat-box .value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .stat-box .label {
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .gum-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .gum-table th, .gum-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .gum-table th {
+            background: #667eea;
+            color: white;
+        }
+
+        .gum-table tr:hover {
+            background: #f5f5f5;
+        }
+
+        .color-swatch {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: inline-block;
+            border: 2px solid #333;
+            vertical-align: middle;
+            margin-right: 10px;
+        }
+
+        .legend-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .legend-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-right: 15px;
+            border: 2px solid #333;
+        }
+
+        .legend-details h4 {
+            margin: 0;
+            color: #333;
+        }
+
+        .legend-details p {
+            margin: 3px 0 0 0;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .svg-container {
+            text-align: center;
+            overflow-x: auto;
+            padding: 20px;
+            background: #fafafa;
+            border-radius: 10px;
+        }
+
+        .svg-container svg {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .fun-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+        }
+
+        .fun-stat {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .fun-stat .icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .fun-stat .value {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .fun-stat .label {
+            color: #555;
+            font-size: 0.9em;
+        }
+
+        .total-cost {
+            font-size: 2.5em;
+            text-align: center;
+            color: #667eea;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .image-description {
+            background: #f0f4ff;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+            margin-bottom: 20px;
+        }
+
+        .image-description p {
+            color: #444;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Chew By Numbers: Gum Wall Design</h1>
+        <p class="subtitle">Transform your image into a delicious gum mosaic!</p>
+
+        <!-- Image Description -->
+        <div class="card">
+            <h2>Image Analysis</h2>
+            <div class="image-description">
+                <p><strong>Source:</strong> jeff-barr-cbn.png</p>
+                <p><strong>Description:</strong> The main subject is a smiling person with vibrant purple hair, wearing a plaid shirt with various colors, set against a light background. Dominant colors for the gum mosaic include purple (for hair), light pink (for skin tone), blue (for the shirt), and white (for highlights). Key elements preserved are the distinct purple hair, facial features, and the checkered pattern of the shirt.</p>
+            </div>
+        </div>
+
+        <!-- Wall Specifications -->
+        <div class="card">
+            <h2>Wall Specifications</h2>
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="value">50 x 50</div>
+                    <div class="label">Wall Size (cm)</div>
+                </div>
+                <div class="stat-box">
+                    <div class="value">1 cm</div>
+                    <div class="label">Gum Diameter</div>
+                </div>
+                <div class="stat-box">
+                    <div class="value">50 x 50</div>
+                    <div class="label">Grid Size</div>
+                </div>
+                <div class="stat-box">
+                    <div class="value">2,500</div>
+                    <div class="label">Total Gum Pieces</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chew By Numbers Legend -->
+        <div class="card">
+            <h2>Chew By Numbers Legend</h2>
+            <div class="legend-grid">
+                <div class="legend-item">
+                    <div class="legend-number" style="background: #F5F5F5; color: #333;">1</div>
+                    <div class="legend-details">
+                        <h4>Extra Polar Ice</h4>
+                        <p>1,382 pieces - $0.11 each</p>
+                    </div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-number" style="background: #FFB6C1; color: #333;">2</div>
+                    <div class="legend-details">
+                        <h4>Bazooka Original</h4>
+                        <p>702 pieces - $0.06 each</p>
+                    </div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-number" style="background: #87CEEB; color: #333;">3</div>
+                    <div class="legend-details">
+                        <h4>Orbit Bubblemint</h4>
+                        <p>132 pieces - $0.12 each</p>
+                    </div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-number" style="background: #FF69B4; color: #333;">4</div>
+                    <div class="legend-details">
+                        <h4>Dubble Bubble Original</h4>
+                        <p>122 pieces - $0.05 each</p>
+                    </div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-number" style="background: #8B008B; color: #FFF;">5</div>
+                    <div class="legend-details">
+                        <h4>Hubba Bubba Grape</h4>
+                        <p>148 pieces - $0.08 each</p>
+                    </div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-number" style="background: #E0FFFF; color: #333;">6</div>
+                    <div class="legend-details">
+                        <h4>Eclipse Winterfrost</h4>
+                        <p>12 pieces - $0.15 each</p>
+                    </div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-number" style="background: #98FB98; color: #333;">7</div>
+                    <div class="legend-details">
+                        <h4>Trident Spearmint</h4>
+                        <p>2 pieces - $0.10 each</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cost Breakdown -->
+        <div class="card">
+            <h2>Cost Breakdown</h2>
+            <table class="gum-table">
+                <thead>
+                    <tr>
+                        <th>Gum Type</th>
+                        <th>Color</th>
+                        <th>Quantity</th>
+                        <th>Unit Price</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Extra Polar Ice</td>
+                        <td><span class="color-swatch" style="background: #F5F5F5;"></span>#F5F5F5</td>
+                        <td>1,382</td>
+                        <td>$0.11</td>
+                        <td>$152.02</td>
+                    </tr>
+                    <tr>
+                        <td>Bazooka Original</td>
+                        <td><span class="color-swatch" style="background: #FFB6C1;"></span>#FFB6C1</td>
+                        <td>702</td>
+                        <td>$0.06</td>
+                        <td>$42.12</td>
+                    </tr>
+                    <tr>
+                        <td>Hubba Bubba Grape</td>
+                        <td><span class="color-swatch" style="background: #8B008B;"></span>#8B008B</td>
+                        <td>148</td>
+                        <td>$0.08</td>
+                        <td>$11.84</td>
+                    </tr>
+                    <tr>
+                        <td>Orbit Bubblemint</td>
+                        <td><span class="color-swatch" style="background: #87CEEB;"></span>#87CEEB</td>
+                        <td>132</td>
+                        <td>$0.12</td>
+                        <td>$15.84</td>
+                    </tr>
+                    <tr>
+                        <td>Dubble Bubble Original</td>
+                        <td><span class="color-swatch" style="background: #FF69B4;"></span>#FF69B4</td>
+                        <td>122</td>
+                        <td>$0.05</td>
+                        <td>$6.10</td>
+                    </tr>
+                    <tr>
+                        <td>Eclipse Winterfrost</td>
+                        <td><span class="color-swatch" style="background: #E0FFFF;"></span>#E0FFFF</td>
+                        <td>12</td>
+                        <td>$0.15</td>
+                        <td>$1.80</td>
+                    </tr>
+                    <tr>
+                        <td>Trident Spearmint</td>
+                        <td><span class="color-swatch" style="background: #98FB98;"></span>#98FB98</td>
+                        <td>2</td>
+                        <td>$0.10</td>
+                        <td>$0.20</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="total-cost">
+                Total Cost: <strong>$229.92</strong>
+            </div>
+        </div>
+
+        <!-- Fun Statistics -->
+        <div class="card">
+            <h2>Fun Statistics</h2>
+            <div class="fun-stats">
+                <div class="fun-stat">
+                    <div class="icon">&#x23F1;</div>
+                    <div class="value">208 hrs</div>
+                    <div class="label">Chewing Time</div>
+                </div>
+                <div class="fun-stat">
+                    <div class="icon">&#x1F525;</div>
+                    <div class="value">27,500</div>
+                    <div class="label">Calories Burned</div>
+                </div>
+                <div class="fun-stat">
+                    <div class="icon">&#x1F4E6;</div>
+                    <div class="value">500</div>
+                    <div class="label">Packs Needed</div>
+                </div>
+                <div class="fun-stat">
+                    <div class="icon">&#x2696;</div>
+                    <div class="value">7.5 kg</div>
+                    <div class="label">Total Weight</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chew By Numbers Grid -->
+        <div class="card">
+            <h2>Chew By Numbers Design</h2>
+            <p style="margin-bottom: 20px; color: #666;">Each circle represents one piece of gum. The number indicates which gum type to use (see legend above).</p>
+            <div class="svg-container" id="svg-container">
+                <!-- SVG will be generated by JavaScript -->
+            </div>
+
+            <p style="margin-top: 20px; color: #666; font-size: 0.9em; text-align: center;">
+                <em>The grid shows all 2,500 gum positions with their corresponding numbers.</em>
+            </p>
+        </div>
+
+        <script>
+            // RLE encoded grid data from the API
+            const gridRLE = [[[50,1]],[[50,1]],[[50,1]],[[50,1]],[[22,1],[3,2],[25,1]],[[18,1],[1,2],[1,3],[7,4],[1,3],[1,2],[21,1]],[[17,1],[1,2],[2,4],[3,5],[1,4],[2,5],[1,4],[1,5],[2,4],[1,2],[19,1]],[[15,1],[1,2],[7,4],[8,5],[1,4],[18,1]],[[14,1],[1,2],[3,4],[1,5],[5,4],[8,5],[1,4],[17,1]],[[13,1],[1,2],[2,4],[3,5],[5,4],[7,5],[2,4],[1,2],[16,1]],[[13,1],[1,2],[1,4],[16,5],[3,4],[16,1]],[[13,1],[2,4],[17,5],[2,4],[1,2],[15,1]],[[12,1],[1,2],[16,5],[1,4],[2,5],[3,4],[15,1]],[[12,1],[1,3],[5,5],[1,4],[3,5],[3,4],[5,2],[5,5],[1,2],[14,1]],[[12,1],[1,4],[4,5],[14,2],[3,5],[1,4],[1,2],[14,1]],[[12,1],[3,5],[16,2],[1,4],[3,5],[1,2],[14,1]],[[12,1],[3,5],[16,2],[1,4],[3,5],[1,3],[14,1]],[[12,1],[3,5],[17,2],[3,5],[1,4],[14,1]],[[11,1],[1,2],[3,5],[17,2],[3,5],[1,4],[14,1]],[[12,1],[2,5],[1,4],[18,2],[2,5],[1,4],[14,1]],[[12,1],[1,4],[1,5],[5,2],[1,4],[6,2],[4,4],[3,2],[2,5],[1,4],[14,1]],[[11,1],[1,2],[2,4],[4,2],[3,4],[4,2],[2,4],[7,2],[1,5],[2,2],[13,1]],[[11,1],[1,2],[2,4],[3,2],[1,4],[2,5],[2,4],[3,2],[2,4],[2,5],[1,4],[4,2],[1,4],[2,2],[13,1]],[[11,1],[1,2],[1,4],[3,2],[4,4],[7,2],[1,4],[6,2],[1,4],[2,2],[13,1]],[[12,1],[22,2],[1,4],[2,2],[13,1]],[[12,1],[24,2],[12,1],[1,6],[1,1]],[[12,1],[24,2],[12,1],[1,6],[1,1]],[[12,1],[7,2],[1,4],[16,2],[14,1]],[[12,1],[6,2],[1,4],[8,2],[2,4],[6,2],[15,1]],[[14,1],[2,2],[2,4],[3,2],[1,4],[1,2],[3,4],[3,2],[1,4],[4,2],[15,1],[1,6]],[[14,1],[20,2],[15,1],[1,2]],[[14,1],[5,2],[8,4],[7,2],[16,1]],[[14,1],[19,2],[17,1]],[[15,1],[18,2],[17,1]],[[15,1],[17,2],[1,3],[17,1]],[[16,1],[16,2],[1,5],[7,1],[1,2],[3,3],[1,7],[5,1]],[[16,1],[15,2],[1,4],[1,5],[7,1],[5,2],[5,1]],[[14,1],[2,2],[1,3],[15,2],[1,3],[7,1],[1,2],[2,1],[1,2],[6,1]],[[9,1],[3,2],[2,1],[2,2],[1,3],[1,4],[14,2],[1,5],[1,2],[1,1],[2,2],[6,1],[2,2],[5,1]],[[5,1],[4,2],[1,1],[6,2],[1,3],[1,4],[14,2],[1,3],[1,2],[1,1],[4,2],[4,1],[1,2],[6,1]],[[3,1],[1,2],[1,1],[1,3],[1,2],[1,3],[1,2],[2,1],[1,2],[1,3],[1,2],[1,1],[16,2],[2,3],[1,1],[2,2],[4,1],[1,2],[2,1],[1,2],[6,1]],[[2,1],[1,3],[1,2],[1,1],[1,6],[2,2],[2,1],[3,2],[1,1],[1,2],[2,3],[13,2],[1,7],[2,3],[2,1],[1,2],[7,1],[1,2],[1,1],[2,2],[3,1]],[[2,1],[1,3],[1,2],[1,6],[3,3],[2,1],[1,2],[1,3],[1,2],[1,1],[2,3],[1,2],[1,3],[12,2],[1,3],[1,2],[1,3],[2,1],[2,2],[3,1],[2,2],[1,1],[1,2],[6,1]],[[2,2],[1,3],[1,2],[3,3],[1,2],[2,1],[2,2],[1,1],[6,3],[14,2],[1,1],[2,2],[1,3],[1,1],[2,2],[1,4],[1,2],[8,1]],[[1,1],[1,2],[1,3],[1,1],[1,3],[1,2],[1,3],[1,2],[1,1],[1,2],[3,3],[1,5],[4,3],[1,2],[1,4],[8,2],[1,3],[1,2],[2,3],[2,1],[2,2],[1,3],[1,1],[4,2],[2,1],[1,2],[5,1]],[[1,1],[2,2],[1,1],[1,6],[1,1],[1,2],[2,1],[1,2],[8,3],[1,1],[8,2],[2,3],[1,2],[1,3],[1,5],[1,3],[2,1],[1,2],[1,3],[2,1],[2,2],[2,1],[1,2],[1,1],[1,2],[4,1]],[[1,1],[2,2],[1,1],[1,6],[2,2],[3,1],[1,2],[1,1],[2,6],[1,2],[4,3],[2,1],[5,2],[7,3],[1,5],[1,3],[1,1],[1,2],[1,1],[3,3],[1,2],[8,1]],[[1,2],[1,4],[1,2],[1,1],[1,3],[2,2],[2,1],[2,2],[1,1],[1,3],[1,2],[2,3],[1,1],[3,3],[1,1],[3,2],[3,3],[1,4],[1,3],[1,2],[3,3],[1,5],[3,3],[2,2],[1,3],[3,1],[1,2],[6,1]],[[1,2],[1,3],[1,1],[3,3],[1,2],[1,1],[3,2],[1,1],[1,3],[1,2],[1,3],[1,2],[2,1],[1,2],[1,4],[2,3],[1,2],[6,3],[1,1],[1,3],[1,6],[1,2],[1,3],[2,1],[1,3],[2,2],[1,3],[3,1],[1,2],[6,1]],[[2,2],[1,1],[1,6],[1,1],[1,2],[2,1],[2,2],[1,3],[1,1],[1,3],[1,2],[1,3],[1,2],[1,1],[1,3],[1,2],[1,4],[2,3],[1,2],[1,5],[1,3],[2,2],[1,3],[1,2],[1,1],[1,3],[1,6],[1,2],[1,3],[4,1],[2,2],[4,1],[1,2],[4,1],[1,2]]];
+
+            // Color mapping
+            const colors = {
+                1: { hex: '#F5F5F5', textColor: '#333333' },
+                2: { hex: '#FFB6C1', textColor: '#333333' },
+                3: { hex: '#87CEEB', textColor: '#333333' },
+                4: { hex: '#FF69B4', textColor: '#333333' },
+                5: { hex: '#8B008B', textColor: '#FFFFFF' },
+                6: { hex: '#E0FFFF', textColor: '#333333' },
+                7: { hex: '#98FB98', textColor: '#333333' }
+            };
+
+            // Decode RLE to full grid
+            function decodeRLE(rle) {
+                const grid = [];
+                for (const row of rle) {
+                    const decodedRow = [];
+                    for (const [count, value] of row) {
+                        for (let i = 0; i < count; i++) {
+                            decodedRow.push(value);
+                        }
+                    }
+                    grid.push(decodedRow);
+                }
+                return grid;
+            }
+
+            // Generate SVG
+            function generateSVG(grid) {
+                const cellSize = 15;
+                const radius = 6;
+                const width = grid[0].length * cellSize;
+                const height = grid.length * cellSize;
+
+                let svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}">
+                    <style>
+                        .gum-circle { stroke: #999; stroke-width: 0.5; }
+                        .number { font-family: Arial, sans-serif; text-anchor: middle; dominant-baseline: central; font-size: 5px; }
+                    </style>
+                    <rect width="${width}" height="${height}" fill="#fafafa"/>`;
+
+                for (let row = 0; row < grid.length; row++) {
+                    for (let col = 0; col < grid[row].length; col++) {
+                        const value = grid[row][col];
+                        const color = colors[value] || { hex: '#CCCCCC', textColor: '#333333' };
+                        const cx = col * cellSize + cellSize / 2;
+                        const cy = row * cellSize + cellSize / 2;
+
+                        svg += `<circle class="gum-circle" cx="${cx}" cy="${cy}" r="${radius}" fill="${color.hex}"/>`;
+                        svg += `<text class="number" x="${cx}" y="${cy}" fill="${color.textColor}">${value}</text>`;
+                    }
+                }
+
+                svg += '</svg>';
+                return svg;
+            }
+
+            // Render the SVG
+            const grid = decodeRLE(gridRLE);
+            const svgContainer = document.getElementById('svg-container');
+            svgContainer.innerHTML = generateSVG(grid);
+        </script>
+
+        <!-- Instructions -->
+        <div class="card">
+            <h2>How to Build Your Gum Wall</h2>
+            <ol style="line-height: 2; color: #444; padding-left: 20px;">
+                <li>Print the Chew By Numbers grid at full size (50cm x 50cm)</li>
+                <li>Gather all the gum pieces according to the cost breakdown above</li>
+                <li>Start from the top-left corner (row 1, column 1)</li>
+                <li>Match each number in the grid to the corresponding gum type in the legend</li>
+                <li>Chew each piece until soft and stick it in the correct position</li>
+                <li>Work row by row for best results</li>
+                <li>Step back occasionally to admire your progress!</li>
+            </ol>
+        </div>
+
+        <footer style="text-align: center; color: rgba(255,255,255,0.8); padding: 30px 0;">
+            <p>Generated by Gum Wall Calculator MCP</p>
+            <p style="font-size: 0.9em; margin-top: 10px;">Wall Size: 50cm x 50cm | Gum Diameter: 1cm | Total Pieces: 2,500</p>
+        </footer>
+    </div>
+</body>
+</html>
