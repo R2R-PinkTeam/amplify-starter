@@ -1,59 +1,7 @@
-import { useEffect, useState } from "react";
 import { useAuthenticator } from "@aws-amplify/ui-react";
-import type { Schema } from "../amplify/data/resource";
-import { generateClient } from "aws-amplify/data";
-
-const client = generateClient<Schema>();
 
 function App() {
   const { user, signOut } = useAuthenticator((context) => [context.user]);
-  const [todos, setTodos] = useState<Array<Schema["Todo"]["type"]>>([]);
-  const [challenges, setChallenges] = useState<Array<Schema["Challenge"]["type"]>>([]);
-
-  useEffect(() => {
-    client.models.Todo.observeQuery().subscribe({
-      next: (data) => setTodos([...data.items]),
-    });
-    
-    client.models.Challenge.observeQuery().subscribe({
-      next: (data) => setChallenges([...data.items]),
-    });
-  }, []);
-
-  function createTodo() {
-    const content = window.prompt("Task description");
-    if (content) {
-      client.models.Todo.create({ 
-        content,
-        priority: "MEDIUM",
-        category: "General",
-        completed: false
-      });
-    }
-  }
-
-  function createChallenge() {
-    const title = window.prompt("Challenge title");
-    const description = window.prompt("Challenge description");
-    if (title) {
-      client.models.Challenge.create({
-        title,
-        description: description || "",
-        points: 100,
-        difficulty: "INTERMEDIATE",
-        category: "AWS",
-        isCompleted: false
-      });
-    }
-  }
-
-  function toggleTodo(id: string, completed: boolean) {
-    client.models.Todo.update({ id, completed: !completed });
-  }
-
-  function toggleChallenge(id: string, isCompleted: boolean) {
-    client.models.Challenge.update({ id, isCompleted: !isCompleted });
-  }
 
   return (
     <main style={{ padding: '20px', maxWidth: '1200px', margin: '0 auto' }}>
@@ -95,17 +43,17 @@ function App() {
           AWS re:Invent 2025 Road-to-reInvent
         </h2>
       </header>
-      
+
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
         <section>
           <h3 style={{ color: '#FF1493', borderBottom: '2px solid #FF69B4', paddingBottom: '10px' }}>
             Team Tasks
           </h3>
-          <button onClick={createTodo} style={{ 
+          <button onClick={createTodo} style={{
             background: 'linear-gradient(45deg, #FF69B4, #FF1493)',
-            color: 'white', 
-            border: 'none', 
-            padding: '12px 24px', 
+            color: 'white',
+            border: 'none',
+            padding: '12px 24px',
             borderRadius: '8px',
             cursor: 'pointer',
             fontWeight: 'bold',
@@ -115,10 +63,10 @@ function App() {
           </button>
           <ul style={{ listStyle: 'none', padding: 0 }}>
             {todos.map((todo) => (
-              <li key={todo.id} style={{ 
+              <li key={todo.id} style={{
                 background: todo.completed ? 'rgba(144, 238, 144, 0.3)' : 'rgba(255, 182, 193, 0.3)',
-                margin: '10px 0', 
-                padding: '15px', 
+                margin: '10px 0',
+                padding: '15px',
                 borderRadius: '8px',
                 borderLeft: `4px solid ${todo.completed ? '#90EE90' : '#FF69B4'}`,
                 cursor: 'pointer',
@@ -140,11 +88,11 @@ function App() {
           <h3 style={{ color: '#FF1493', borderBottom: '2px solid #FF69B4', paddingBottom: '10px' }}>
             Competition Challenges
           </h3>
-          <button onClick={createChallenge} style={{ 
+          <button onClick={createChallenge} style={{
             background: 'linear-gradient(45deg, #FF1493, #DC143C)',
-            color: 'white', 
-            border: 'none', 
-            padding: '12px 24px', 
+            color: 'white',
+            border: 'none',
+            padding: '12px 24px',
             borderRadius: '8px',
             cursor: 'pointer',
             fontWeight: 'bold',
@@ -154,18 +102,18 @@ function App() {
           </button>
           <ul style={{ listStyle: 'none', padding: 0 }}>
             {challenges.map((challenge) => (
-              <li key={challenge.id} style={{ 
+              <li key={challenge.id} style={{
                 background: challenge.isCompleted ? 'rgba(255, 215, 0, 0.3)' : 'rgba(255, 105, 180, 0.2)',
-                margin: '10px 0', 
-                padding: '15px', 
+                margin: '10px 0',
+                padding: '15px',
                 borderRadius: '8px',
                 borderLeft: `4px solid ${challenge.isCompleted ? '#FFD700' : '#FF69B4'}`,
                 cursor: 'pointer'
               }}
               onClick={() => toggleChallenge(challenge.id, challenge.isCompleted || false)}
               >
-                <strong>{challenge.title}</strong> 
-                <span style={{ 
+                <strong>{challenge.title}</strong>
+                <span style={{
                   background: challenge.isCompleted ? '#FFD700' : '#FF69B4',
                   color: 'white',
                   padding: '2px 8px',
@@ -188,7 +136,7 @@ function App() {
           </ul>
         </section>
       </div>
-      
+
       <footer style={{
         marginTop: '4rem',
         textAlign: 'center',
