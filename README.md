@@ -1,19 +1,19 @@
-## Gum Rating Interface - AWS re:Invent 2025 Pink Team
+## ChewView - AWS re:Invent 2025 Pink Team
 
-A monumentally over-engineered AI-powered platform for rating gum and planning gum walls, built with AWS Amplify Gen 2.
+A monumentally over-engineered AI-powered platform for creating and sharing digital chew wall art, built with AWS Amplify Gen 2.
 
 ## Overview
 
-The Gum Rating Interface helps users discover, rate, and purchase gum packs while planning their own gum wall installations. Features celebrity endorsement requests (Emma Watson and Brad Pitt only!) and comprehensive order management.
+ChewView helps users design, plan, and generate unique chew wall art with AI. Upload wall photos, browse community creations, and share your colorful designs with the world.
 
-Built with React, TypeScript, and AWS Amplify Gen 2, showcasing modern serverless architecture and real-time data synchronization.
+Built with React, TypeScript, and AWS Amplify Gen 2, showcasing modern serverless architecture, real-time data synchronization, and AI-powered image generation.
 
 ## Features
 
-- **Gum Pack Catalog**: Browse and rate gum packs by color, flavor, and origin
-- **Rating System**: 1-10 rating scale with comments and user attribution
-- **Order Management**: Complete e-commerce flow with order tracking
-- **Celebrity Requests**: Request celebrity endorsements for your gum wall
+- **Design Gallery**: Browse and explore amazing chew wall designs from the community
+- **Image Upload**: Upload your wall photos to S3 with secure storage
+- **AI Generation**: Generate unique chew wall images using advanced AI technology
+- **My Designs**: View and manage your personal chew wall art collection
 - **Real-time Updates**: Live data synchronization with GraphQL subscriptions
 - **Authentication**: Secure user authentication with Amazon Cognito
 - **Type Safety**: Full TypeScript support with auto-generated types
@@ -51,23 +51,44 @@ npm run dev
 
 Visit `http://localhost:5173` to see the app.
 
+## Demo User
+
+For demos and testing, a demo user account is available:
+
+**Credentials:**
+- Email: `demo@chewview.local`
+- Password: `DemoUser123!`
+
+### Creating the Demo User
+
+After deploying your Amplify app, create the demo user by running:
+
+```bash
+node scripts/create-demo-user.mjs
+```
+
+This script will:
+- ✅ Create a user with verified email (no verification needed)
+- ✅ Set a permanent password
+- ✅ Make the account ready for immediate login
+
+The demo user is perfect for:
+- Product demonstrations
+- Testing image uploads
+- Showcasing the full user experience
+- Hackathon presentations
+
+**Note:** The demo user is created in your Cognito User Pool and can upload images, create designs, and access all authenticated features.
+
 ## Data Models
 
-### GumPack
-Gum pack catalog with ratings and inventory.
-- Fields: packId, name, color, flavor, origin, stock, price, ratings, description, imageUrl
+### Todo
+Task management for team collaboration.
+- Fields: content, priority, category, completed, timestamps
 
-### Rating
-Individual ratings for gum packs.
-- Fields: packId, ratingId, rating (1-10), comment, userName, createdAt
-
-### Order
-Customer orders with items and shipping.
-- Fields: orderId, items, totalAmount, status, shippingAddress, timestamps
-
-### CelebrityRequest
-Celebrity endorsement requests.
-- Fields: requestId, celebrity (Emma Watson/Brad Pitt), packId, destination, status, notes, timestamps
+### Challenge
+Competition challenges with points and difficulty.
+- Fields: title, description, points, difficulty, category, isCompleted, timestamps
 
 ## Project Structure
 
