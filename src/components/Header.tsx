@@ -114,6 +114,24 @@ function AuthenticatedHeader() {
               DASHBOARD
             </Link>
 
+            <a
+              href="/presentations/gum-wall-results.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                color: '#6b7280',
+                textDecoration: 'none',
+                fontWeight: 600,
+                fontSize: '1rem',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.5rem'
+              }}
+            >
+              DEMO RESULTS
+              <i className="fas fa-external-link-alt" style={{ fontSize: '0.75rem' }}></i>
+            </a>
+
             {/* Profile Dropdown */}
             <div style={{ position: 'relative' }}>
               <button
@@ -204,6 +222,38 @@ function AuthenticatedHeader() {
 
                     {/* Menu Items */}
                     <div style={{ padding: '0.5rem 0' }}>
+                      <a
+                        href="/presentations/gum-wall-results.html"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => {
+                          setDropdownOpen(false);
+                        }}
+                        style={{
+                          width: '100%',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '0.75rem',
+                          padding: '0.75rem 1rem',
+                          background: 'transparent',
+                          border: 'none',
+                          cursor: 'pointer',
+                          fontSize: '0.95rem',
+                          color: '#374151',
+                          textDecoration: 'none',
+                          transition: 'background 0.2s'
+                        }}
+                        onMouseOver={(e) => {
+                          e.currentTarget.style.background = '#f3f4f6';
+                        }}
+                        onMouseOut={(e) => {
+                          e.currentTarget.style.background = 'transparent';
+                        }}
+                      >
+                        <i className="fas fa-chart-bar" style={{ width: '16px', color: '#6b7280' }}></i>
+                        Demo Results
+                      </a>
+
                       <button
                         onClick={() => {
                           setDropdownOpen(false);
