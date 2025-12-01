@@ -2,5 +2,9 @@
   "name": "gum-packs-functions",
   "version": "1.0.0",
   "type": "module",
-  "description": "Lambda functions for gum packs API"
+  "description": "Lambda functions for gum packs API",
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.0.0",
+    "@aws-sdk/lib-dynamodb": "^3.0.0"
+  }
 }

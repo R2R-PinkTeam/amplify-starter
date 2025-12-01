@@ -343,7 +343,7 @@ export default function DesignGallery({
           </div>
           <h3 style={{ margin: 0, color: '#1f2937' }}>No Designs Yet</h3>
           <p style={{ color: '#6b7280', textAlign: 'center', maxWidth: '400px' }}>
-            Start creating your gum wall art collection by uploading your first design!
+            Start creating your chew wall art collection by uploading your first design!
           </p>
           <button onClick={onRefresh} className="btn btn-primary">
             <i className="fas fa-upload me-2"></i>

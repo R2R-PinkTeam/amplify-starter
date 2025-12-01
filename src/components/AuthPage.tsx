@@ -30,7 +30,7 @@ export default function AuthPage() {
                     color: "#FF6B9D",
                   }}
                 >
-                  🍬 GumWall
+                  🍬 ChewView
                 </h1>
               </Link>
               <div className="float-right btn-wrapper">
@@ -68,8 +68,8 @@ export default function AuthPage() {
                 </h2>
                 <p className="mb-4">
                   {isSignUp
-                    ? "Sign up to start creating amazing gum wall designs. Your account information will be secure and never shared with third parties."
-                    : "Log in to access your gum wall studio and continue creating."}
+                    ? "Sign up to start creating amazing chew wall designs. Your account information will be secure and never shared with third parties."
+                    : "Log in to access your chew wall studio and continue creating."}
                 </p>
 
                 <div className="pt-4">
@@ -106,17 +106,17 @@ export default function AuthPage() {
                   fontWeight: 800,
                 }}
               >
-                🍬 GumWall
+                🍬 ChewView
               </h3>
               <p className="text-white pt-1 pb-3">
-                Create, design, and share your digital gum wall art. Powered by
+                Create, design, and share your digital chew wall art. Powered by
                 AWS Amplify and AI technology.
               </p>
               <ul className="list-unstyled text-white">
                 <li className="mb-3">
                   <i className="fas fa-envelope me-3" aria-hidden="true"></i>
-                  <a className="text-white" href="mailto:info@gumwall.com">
-                    info@gumwall.com
+                  <a className="text-white" href="mailto:info@chewview.com">
+                    info@chewview.com
                   </a>
                 </li>
               </ul>
@@ -145,7 +145,7 @@ export default function AuthPage() {
           <div className="row">
             <div className="col-sm-12 text-center">
               <p className="copy-right mb-0 pb-4 pb-md-0">
-                Copyright &copy; 2025. All Rights Reserved by GumWall
+                Copyright &copy; 2025. All Rights Reserved by ChewView
               </p>
             </div>
           </div>
