@@ -49,7 +49,7 @@ export async function analyzeWall(
  * Upload an image to S3 and get the URL
  * (This would integrate with your S3 upload mechanism)
  */
-export async function uploadWallImage(file: File): Promise<string> {
+export async function uploadWallImage(_file: File): Promise<string> {
   // TODO: Implement S3 upload
   // For now, return a placeholder
   throw new Error("S3 upload not yet implemented");

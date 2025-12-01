@@ -32,7 +32,7 @@ function App() {
           margin: '0',
           textShadow: '2px 2px 4px rgba(0,0,0,0.1)'
         }}>
-          🌸 Pink Team Competition 🌸
+          🎨 GumWall.ai
         </h1>
         <h2 style={{
           color: '#666',
@@ -40,101 +40,28 @@ function App() {
           margin: '0.5rem 0',
           fontWeight: 'normal'
         }}>
-          AWS re:Invent 2025 Road-to-reInvent
+          AI-Powered Gum Wall Planning Platform
         </h2>
       </header>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
-        <section>
-          <h3 style={{ color: '#FF1493', borderBottom: '2px solid #FF69B4', paddingBottom: '10px' }}>
-            Team Tasks
-          </h3>
-          <button onClick={createTodo} style={{
-            background: 'linear-gradient(45deg, #FF69B4, #FF1493)',
-            color: 'white',
-            border: 'none',
-            padding: '12px 24px',
-            borderRadius: '8px',
-            cursor: 'pointer',
-            fontWeight: 'bold',
-            marginBottom: '20px'
-          }}>
-            + Add Task
-          </button>
-          <ul style={{ listStyle: 'none', padding: 0 }}>
-            {todos.map((todo) => (
-              <li key={todo.id} style={{
-                background: todo.completed ? 'rgba(144, 238, 144, 0.3)' : 'rgba(255, 182, 193, 0.3)',
-                margin: '10px 0',
-                padding: '15px',
-                borderRadius: '8px',
-                borderLeft: `4px solid ${todo.completed ? '#90EE90' : '#FF69B4'}`,
-                cursor: 'pointer',
-                textDecoration: todo.completed ? 'line-through' : 'none'
-              }}
-              onClick={() => toggleTodo(todo.id, todo.completed || false)}
-              >
-                <strong>{todo.content}</strong>
-                <br />
-                <small style={{ color: '#666' }}>
-                  Priority: {todo.priority} | Category: {todo.category}
-                </small>
-              </li>
-            ))}
+      <div style={{ textAlign: 'center', padding: '3rem' }}>
+        <p style={{ color: '#666', fontSize: '1.2rem', marginBottom: '2rem' }}>
+          Upload wall photos, get AI analysis, and plan your gum wall masterpiece!
+        </p>
+        <div style={{
+          background: 'rgba(255, 105, 180, 0.1)',
+          padding: '2rem',
+          borderRadius: '12px',
+          border: '2px solid #FF69B4'
+        }}>
+          <h3 style={{ color: '#FF1493', marginBottom: '1rem' }}>Coming Soon</h3>
+          <ul style={{ listStyle: 'none', padding: 0, color: '#666' }}>
+            <li style={{ marginBottom: '0.5rem' }}>🎯 Site Selection Analysis (Gordon Ramsay personality)</li>
+            <li style={{ marginBottom: '0.5rem' }}>📋 City Council Proposal Generator (HOA president personality)</li>
+            <li style={{ marginBottom: '0.5rem' }}>📊 Progress Tracking (Gen-Z hype beast personality)</li>
+            <li style={{ marginBottom: '0.5rem' }}>💬 Conversational AI Chat</li>
           </ul>
-        </section>
-
-        <section>
-          <h3 style={{ color: '#FF1493', borderBottom: '2px solid #FF69B4', paddingBottom: '10px' }}>
-            Competition Challenges
-          </h3>
-          <button onClick={createChallenge} style={{
-            background: 'linear-gradient(45deg, #FF1493, #DC143C)',
-            color: 'white',
-            border: 'none',
-            padding: '12px 24px',
-            borderRadius: '8px',
-            cursor: 'pointer',
-            fontWeight: 'bold',
-            marginBottom: '20px'
-          }}>
-            + Add Challenge
-          </button>
-          <ul style={{ listStyle: 'none', padding: 0 }}>
-            {challenges.map((challenge) => (
-              <li key={challenge.id} style={{
-                background: challenge.isCompleted ? 'rgba(255, 215, 0, 0.3)' : 'rgba(255, 105, 180, 0.2)',
-                margin: '10px 0',
-                padding: '15px',
-                borderRadius: '8px',
-                borderLeft: `4px solid ${challenge.isCompleted ? '#FFD700' : '#FF69B4'}`,
-                cursor: 'pointer'
-              }}
-              onClick={() => toggleChallenge(challenge.id, challenge.isCompleted || false)}
-              >
-                <strong>{challenge.title}</strong>
-                <span style={{
-                  background: challenge.isCompleted ? '#FFD700' : '#FF69B4',
-                  color: 'white',
-                  padding: '2px 8px',
-                  borderRadius: '12px',
-                  fontSize: '12px',
-                  marginLeft: '10px'
-                }}>
-                  {challenge.points} pts
-                </span>
-                <br />
-                <small style={{ color: '#666' }}>
-                  {challenge.description}
-                </small>
-                <br />
-                <small style={{ color: '#888' }}>
-                  Difficulty: {challenge.difficulty} | Category: {challenge.category}
-                </small>
-              </li>
-            ))}
-          </ul>
-        </section>
+        </div>
       </div>
 
       <footer style={{
@@ -144,60 +71,10 @@ function App() {
         borderTop: '1px solid #FFB6C1',
         paddingTop: '2rem'
       }}>
-        <div style={{ marginBottom: '1rem', display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-          <a
-            href="/setup"
-            style={{
-              color: '#FF1493',
-              textDecoration: 'none',
-              fontSize: '1.1rem',
-              fontWeight: 'bold',
-              padding: '10px 20px',
-              border: '2px solid #FF69B4',
-              borderRadius: '8px',
-              display: 'inline-block',
-              transition: 'all 0.3s ease'
-            }}
-            onMouseOver={(e) => {
-              e.currentTarget.style.background = 'linear-gradient(45deg, #FF69B4, #FF1493)';
-              e.currentTarget.style.color = 'white';
-            }}
-            onMouseOut={(e) => {
-              e.currentTarget.style.background = 'transparent';
-              e.currentTarget.style.color = '#FF1493';
-            }}
-          >
-            📋 Setup Guide
-          </a>
-          <a
-            href="/presentation"
-            style={{
-              color: '#FF1493',
-              textDecoration: 'none',
-              fontSize: '1.1rem',
-              fontWeight: 'bold',
-              padding: '10px 20px',
-              border: '2px solid #FF69B4',
-              borderRadius: '8px',
-              display: 'inline-block',
-              transition: 'all 0.3s ease'
-            }}
-            onMouseOver={(e) => {
-              e.currentTarget.style.background = 'linear-gradient(45deg, #FF69B4, #FF1493)';
-              e.currentTarget.style.color = 'white';
-            }}
-            onMouseOut={(e) => {
-              e.currentTarget.style.background = 'transparent';
-              e.currentTarget.style.color = '#FF1493';
-            }}
-          >
-            🎬 Presentation
-          </a>
-        </div>
         <div>
-          🚀 Pink Team Platform - Powered by AWS Amplify
+          🚀 GumWall.ai - Powered by AWS Amplify & Amazon Bedrock
           <br />
-          <small>Showcasing React, GraphQL, DynamoDB, and real-time updates</small>
+          <small>Built with Strands SDK, AgentCore Runtime, and Claude Sonnet 4</small>
         </div>
       </footer>
     </main>

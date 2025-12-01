@@ -1,4 +1,4 @@
-import { uploadData, list, getUrl, downloadData } from 'aws-amplify/storage';
+import { uploadData, list, getUrl } from 'aws-amplify/storage';
 
 /**
  * Supported file types for upload
