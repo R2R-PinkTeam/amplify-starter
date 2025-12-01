@@ -1,50 +1,10 @@
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
+import Header from "./Header";
 
 export default function LandingPage() {
-  useEffect(() => {
-    // Initialize menuzord if available
-    if (window.jQuery && (window as any).jQuery("#menuzord").menuzord) {
-      (window as any).jQuery("#menuzord").menuzord();
-    }
-  }, []);
-
   return (
     <div className="main-wrapper">
-      {/* HEADER */}
-      <header className="header">
-        <nav className="nav-menuzord navbar-sticky">
-          <div className="container clearfix">
-            <div id="menuzord" className="menuzord menuzord-responsive">
-              <Link to="/" className="menuzord-brand">
-                <h1
-                  style={{
-                    fontSize: "2rem",
-                    fontWeight: 800,
-                    margin: 0,
-                    color: "#FF6B9D",
-                  }}
-                >
-                  🍬 GumWall
-                </h1>
-              </Link>
-              <div className="float-right btn-wrapper">
-                <Link className="btn btn-outline-primary" to="/login">
-                  Login / Sign Up
-                </Link>
-              </div>
-              <ul className="menuzord-menu menuzord-right">
-                <li className="active">
-                  <Link to="/">Home</Link>
-                </li>
-                <li>
-                  <Link to="/login">Login</Link>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>
-      </header>
+      <Header isAuthenticated={false} />
 
       {/* HERO SECTION */}
       <section
@@ -63,13 +23,13 @@ export default function LandingPage() {
                 className="text-white mb-4"
                 style={{ fontSize: "3.5rem", fontWeight: 800 }}
               >
-                Create Your Digital Gum Wall
+                Create Your Digital Chew Wall
               </h1>
               <p
                 className="text-white mb-5"
                 style={{ fontSize: "1.3rem", opacity: 0.95 }}
               >
-                Design, plan, and generate unique gum wall art with AI. Share
+                Design, plan, and generate unique chew wall art with AI. Share
                 your colorful creations with the world.
               </p>
               <div className="d-flex gap-3 justify-content-center flex-wrap">
@@ -85,12 +45,12 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* POPULAR GUM WALLS SHOWCASE */}
+      {/* POPULAR CHEW WALLS SHOWCASE */}
       <section className="bg-light py-7 py-md-10">
         <div className="container">
           <div className="section-title">
-            <h2>Featured Gum Walls</h2>
-            <p>Explore amazing gum wall designs from our community</p>
+            <h2>Featured Chew Walls</h2>
+            <p>Explore amazing chew wall designs from our community</p>
           </div>
           <div className="row">
             <div className="col-sm-4">
@@ -98,13 +58,13 @@ export default function LandingPage() {
                 <a href="#" className="card-img">
                   <img
                     className="card-img-top lazyestload"
-                    data-src="/assets/img/populer-city/populer-city-1.jpg"
-                    src="/assets/img/populer-city/populer-city-1.jpg"
-                    alt="Colorful Burst"
+                    data-src="/assets/img/generated/kiro.png"
+                    src="/assets/img/generated/kiro.png"
+                    alt="Kiro Wall"
                   />
                   <div className="card-img-overlay">
-                    <h3 className="text-white">Colorful Burst</h3>
-                    <p className="text-white">256 pieces</p>
+                    <h3 className="text-white">Kiro Wall</h3>
+                    <p className="text-white">AI Generated</p>
                   </div>
                 </a>
               </div>
@@ -115,13 +75,13 @@ export default function LandingPage() {
                 <a href="#" className="card-img">
                   <img
                     className="card-img-top lazyestload"
-                    data-src="/assets/img/populer-city/populer-city-2.jpg"
-                    src="/assets/img/populer-city/populer-city-2.jpg"
-                    alt="Rainbow Dreams"
+                    data-src="/assets/img/generated/jeff-barr-wall.png"
+                    src="/assets/img/generated/jeff-barr-wall.png"
+                    alt="Jeff Barr Wall"
                   />
                   <div className="card-img-overlay">
-                    <h3 className="text-white">Rainbow Dreams</h3>
-                    <p className="text-white">512 pieces</p>
+                    <h3 className="text-white">Jeff Barr Wall</h3>
+                    <p className="text-white">AI Generated</p>
                   </div>
                 </a>
               </div>
@@ -132,13 +92,13 @@ export default function LandingPage() {
                 <a href="#" className="card-img">
                   <img
                     className="card-img-top lazyestload"
-                    data-src="/assets/img/populer-city/populer-city-3.jpg"
-                    src="/assets/img/populer-city/populer-city-3.jpg"
-                    alt="Sunset Vibes"
+                    data-src="/assets/img/generated/swami-wall.png"
+                    src="/assets/img/generated/swami-wall.png"
+                    alt="Swami Wall"
                   />
                   <div className="card-img-overlay">
-                    <h3 className="text-white">Sunset Vibes</h3>
-                    <p className="text-white">384 pieces</p>
+                    <h3 className="text-white">Swami Wall</h3>
+                    <p className="text-white">AI Generated</p>
                   </div>
                 </a>
               </div>
@@ -149,13 +109,81 @@ export default function LandingPage() {
                 <a href="#" className="card-img">
                   <img
                     className="card-img-top lazyestload"
-                    data-src="/assets/img/populer-city/populer-city-6.jpg"
-                    src="/assets/img/populer-city/populer-city-6.jpg"
-                    alt="Neon Nights"
+                    data-src="/assets/img/generated/aws.png"
+                    src="/assets/img/generated/aws.png"
+                    alt="AWS Wall"
                   />
                   <div className="card-img-overlay">
-                    <h3 className="text-white">Neon Nights</h3>
-                    <p className="text-white">192 pieces</p>
+                    <h3 className="text-white">AWS Wall</h3>
+                    <p className="text-white">AI Generated</p>
+                  </div>
+                </a>
+              </div>
+            </div>
+
+            <div className="col-sm-6">
+              <div className="card border-0 card-hoverable-scale">
+                <a href="#" className="card-img">
+                  <img
+                    className="card-img-top lazyestload"
+                    data-src="/assets/img/generated/venetian-jeff.png"
+                    src="/assets/img/generated/venetian-jeff.png"
+                    alt="Venetian Jeff"
+                  />
+                  <div className="card-img-overlay">
+                    <h3 className="text-white">Venetian Jeff</h3>
+                    <p className="text-white">AI Generated</p>
+                  </div>
+                </a>
+              </div>
+            </div>
+
+            <div className="col-sm-6">
+              <div className="card border-0 card-hoverable-scale">
+                <a href="#" className="card-img">
+                  <img
+                    className="card-img-top lazyestload"
+                    data-src="/assets/img/generated/swami-expo.png"
+                    src="/assets/img/generated/swami-expo.png"
+                    alt="Swami Expo"
+                  />
+                  <div className="card-img-overlay">
+                    <h3 className="text-white">Swami Expo</h3>
+                    <p className="text-white">AI Generated</p>
+                  </div>
+                </a>
+              </div>
+            </div>
+
+            <div className="col-sm-6">
+              <div className="card border-0 card-hoverable-scale">
+                <a href="#" className="card-img">
+                  <img
+                    className="card-img-top lazyestload"
+                    data-src="/assets/img/generated/jeff-s3-gum.png"
+                    src="/assets/img/generated/jeff-s3-gum.png"
+                    alt="Jeff S3 Gum"
+                  />
+                  <div className="card-img-overlay">
+                    <h3 className="text-white">Jeff S3 Gum</h3>
+                    <p className="text-white">AI Generated</p>
+                  </div>
+                </a>
+              </div>
+            </div>
+
+            <div className="col-sm-6">
+              <div className="card border-0 card-hoverable-scale">
+                <a href="#" className="card-img">
+                  <img
+                    className="card-img-top lazyestload"
+                    data-src="/assets/img/generated/acb.png"
+                    src="/assets/img/generated/acb.png"
+                    alt="ACB Wall"
+                  />
+                  <div className="card-img-overlay">
+                    <h3 className="text-white">ACB Wall</h3>
+                    <p className="text-white">AI Generated</p>
                   </div>
                 </a>
               </div>
@@ -173,8 +201,8 @@ export default function LandingPage() {
       <section className="pt-md-10 sec-pb-70 pb-6 bg-white">
         <div className="container">
           <div className="section-title pt-md-8">
-            <h2>Why Choose GumWall?</h2>
-            <p>Create stunning gum wall designs with our powerful tools</p>
+            <h2>Why Choose ChewView?</h2>
+            <p>Create stunning chew wall designs with our powerful tools</p>
           </div>
           <div className="row">
             <div className="col-md-6 col-lg-3">
@@ -188,7 +216,7 @@ export default function LandingPage() {
                   </div>
                   <h3 className="h5 fw-normal mb-3">Design Tools</h3>
                   <p className="text-muted">
-                    Intuitive design interface to create your perfect gum wall
+                    Intuitive design interface to create your perfect chew wall
                     pattern with drag-and-drop simplicity
                   </p>
                 </div>
@@ -206,7 +234,7 @@ export default function LandingPage() {
                   </div>
                   <h3 className="h5 fw-normal mb-3">AI Generation</h3>
                   <p className="text-muted">
-                    Generate unique gum wall images using advanced AI technology
+                    Generate unique chew wall images using advanced AI technology
                     powered by AWS
                   </p>
                 </div>
@@ -269,7 +297,7 @@ export default function LandingPage() {
             className="text-white mb-5"
             style={{ fontSize: "1.2rem", opacity: 0.95 }}
           >
-            Join thousands of artists creating amazing gum wall designs
+            Join thousands of artists creating amazing chew wall designs
           </p>
           <Link to="/signup" className="btn btn-light btn-lg">
             Start Creating Now
@@ -295,17 +323,17 @@ export default function LandingPage() {
                   fontWeight: 800,
                 }}
               >
-                🍬 GumWall
+                🍬 ChewView
               </h3>
               <p className="text-white pt-1 pb-3">
-                Create, design, and share your digital gum wall art. Powered by
+                Create, design, and share your digital chew wall art. Powered by
                 AWS Amplify and AI technology.
               </p>
               <ul className="list-unstyled text-white">
                 <li className="mb-3">
                   <i className="fas fa-envelope me-3" aria-hidden="true"></i>
-                  <a className="text-white" href="mailto:info@gumwall.com">
-                    info@gumwall.com
+                  <a className="text-white" href="mailto:info@chewview.com">
+                    info@chewview.com
                   </a>
                 </li>
               </ul>
@@ -334,7 +362,7 @@ export default function LandingPage() {
           <div className="row">
             <div className="col-sm-12 text-center">
               <p className="copy-right mb-0 pb-4 pb-md-0">
-                Copyright &copy; 2025. All Rights Reserved by GumWall
+                Copyright &copy; 2025. All Rights Reserved by ChewView
               </p>
             </div>
           </div>
